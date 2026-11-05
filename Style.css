@@ -126,7 +126,7 @@ footer {
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background: white;
+    background: rgb(209, 116, 28);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -181,6 +181,14 @@ footer {
     background-color: #ff6b6b;
 }
 
+img {
+
+    width: 150px;
+    border-radius: 10%;
+    size: 10px;
+    height: auto;
+    
+}
 
 
 
