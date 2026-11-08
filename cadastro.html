@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
-    <title>Document</title>
+    <title>PULL UP HOOPS - Cadastro</title>
 </head>
 <body>
-    <div class="">
     <div class="cadastro-container">
         <h2>Cadastro</h2>
-        <form>
+        <form id="form-cadastro">
             <div class="form-group">
                 <label for="nome">Nome completo</label>
                 <input type="text" id="ipt_nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="ipt_email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="ipt_senha" name="senha" required>
             </div>
             <div class="form-group">
                 <label for="cpf">CPF</label>
@@ -25,21 +32,77 @@
             </div>
             <div class="form-group">
                 <label for="motivo">Por que esse jogador?</label>
-                <textarea id="ipt_motivo"  rows="3" ></textarea>
+                <textarea id="ipt_motivo" rows="3"></textarea>
             </div>
-            <button onclick="cadastro()"  class="btn-cadastro">Cadastrar</button>
+            <button type="submit" class="btn-cadastro">Cadastrar</button>
         </form>
     </div>
-    </div>
+
+    <script>
+     /*
+   Usando const pois necessito que estes valores não se tornem mutáveis
+     */
+
+            let isValid = true;
+
+            const nome = ipt_nome.value;
+            const email = ipt_email.value;
+            const senha = ipt_senha.value;
+            const cpf = ipt_cpf.value;
+            const jogador = ipt_jogador.value;
+            const motivo = ipt_motivo.value;
+
+            // Validar nome mínimo 3 caracteres
+            if (nome.length < 3) {
+                alert('Nome deve ter no mínimo 3 caracteres');
+                isValid = false;
+            }
+
+            // Validar email usando expressão regular
+            const Email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!Email.test(email)) {
+                alert('Email inválido');
+                isValid = false;
+            }
+
+            // Validar senha segura: mínimo 8 caracteres, 1 número e 1 letra maiúscula
+            const Senha = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!Senha.test(senha)) {
+                alert('Senha deve ter no mínimo 8 caracteres, pelo menos 1 letra maiúscula e 1 número');
+                isValid = false;
+            }
+
+            // Validar CPF com loop for
+            const digitosCPF = cpf.replace(/\D/g, '');
+            if (digitosCPF.length !== 11) {
+                alert('CPF deve ter 11 dígitos');
+                isValid = false;
+            } else {
+                // Verificar se todos os dígitos são iguais (ex: 111.111.111-11)
+                let todosIguais = true;
+                for (let i = 1; i < digitosCPF.length; i++) {
+                    if (digitosCPF[i] !== digitosCPF[0]) {
+                        todosIguais = false;
+                        
+                    }
+                }
+                if (todosIguais = false) {
+                    alert('CPF inválido: não pode ter todos os dígitos iguais');
+                    isValid = false;
+                }
+            }
+
+            // Validar motivo mínimo 10 caracteres
+            if (motivo.length < 10) {
+                alert('O motivo deve ter no mínimo 10 caracteres');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Cadastro realizado com sucesso!');
+                this.submit();
+            }
+        ;
+    </script>
 </body>
-<script>
-function cadastro(){
-
-
-
-
-
-    
-}
-</script>
 </html>

@@ -4,20 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
-    <title>Document</title>
-    <div class="cadastro-container">
-     <h2 >Login</h2>
-
-
-
-
-
-
-
-
-    </div>
+    <title>PULL UP HOOPS - Login</title>
 </head>
 <body>
-    
+    <header>
+        <div class="logo">PULL UP HOOPS</div>
+        <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
+        <nav>
+            <a href="index.html" class="btn-login">Login</a>
+            <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-container">
+            <div class="container">
+                <h2>Login</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="ipt_email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="ipt_senha" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn-cadastro">Entrar</button>
+                </form>
+                <p style="margin-top: 1rem; text-align: center;">Não tem uma conta? <a href="cadastro.html" style="color: var(--dourado-titulo);">Cadastre-se</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>2026. Pedro Henrique Ferreira Rodrigues Santos</p>
+    </footer>
 </body>
 </html>

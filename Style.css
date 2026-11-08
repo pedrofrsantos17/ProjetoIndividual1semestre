@@ -9,9 +9,6 @@
 }
 
 
-
-
-
 * {
     margin: 0;
     padding: 0;
@@ -20,8 +17,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--verde-chama)
-    color var(--chama-clara)
+    background-color: var(--bg-escuro);
+    color: var(--chama-clara);
 }
 
 header {
@@ -42,38 +39,40 @@ header {
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
+    color: var(--dourado-titulo);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 nav a {
     margin-left: 20px;
     text-decoration: none;
-    color: #e94560;
+    color: var(--dourado-titulo);
     font-weight: 500;
     transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #ff6b6b;
+    color: var(--laranja-bola);
 }
 
 .btn-login, .btn-cadastro {
     padding: 0.5rem 1rem;
-    background-color: #d86c0d;
-    color: white;
+    background-color: var(--laranja-bola);
+    color: var(--bg-escuro);
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
     transition: background 0.3s;
 }
 
-.btn-login:hover, .btn-signup:hover {
-    background-color: #ff6b6b;
+.btn-login:hover {
+    background-color: var(--chama-vermelha);
 }
 
 .hero {
     min-height: 100vh;
-    background-color: var(--verde-chama);
-    background: linear-gradient((206, 132, 14, 0.6), rgba(215, 126, 37, 0.6)), url('https://images.unsplash.com/photo-1546519453-5d9d255e1b8e?w=1920&q=80');
+    background-color: var(--bg-escuro);
+    background: linear-gradient(135deg, var(--verde-chama), var(--laranja-bola)), url('https://images.unsplash.com/photo-1546519453-5d9d255e1b8e?w=1920&q=80');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -81,7 +80,7 @@ nav a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: var(--bg-escuro);
     margin-top: 60px;
     padding: 2rem;
 }
@@ -89,25 +88,30 @@ nav a:hover {
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    color: var(--dourado-titulo);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero p {
+    color: var(--bg-escuro);
     font-size: 1.2rem;
     margin-bottom: 2rem;
     max-width: 600px;
 }
 
 main {
+    color: var(--bg-escuro);
     max-width: 1100px;
     margin: -100px auto 0;
-    background: white;
+    background: var(--chama-vermelha);
     padding-bottom: 40px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 section {
     padding: 3rem 2rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--dourado-detalhe);
+    color: var(--bg-escuro);
 }
 
 section:last-child {
@@ -115,22 +119,19 @@ section:last-child {
 }
 
 h2 {
-    color: #1a1a2e;
+    color: var(--dourado-titulo);
     margin-bottom: 1rem;
     font-size: 2rem;
 }
 
 p {
     line-height: 1.6;
-
-
-    color: #555;
+    color: var(--bg-escuro);
 }
 
 footer {
-    background-color: #1a1a2e;
-    color: white;
-
+    background-color: var(--dourado-detalhe);
+    color: var(--bg-escuro);
     text-align: center;
     padding: 2rem;
     margin-top: 40px;
@@ -140,9 +141,10 @@ footer {
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background: rgb(209, 116, 28);
+    background: var(--bg-escuro);
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    color: var(--bg-escuro);
 }
 
 .form-group {
@@ -153,24 +155,26 @@ footer {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #1a1a2e;
+    color: var(--dourado-titulo);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--dourado-detalhe);
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
+    background-color: var(--bg-escuro);
+    color: var(--chama-clara);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #d2771c;
-    box-shadow: 0 0 0 3px rgba(210, 119, 28, 0.1);
+    border-color: var(--laranja-bola);
+    box-shadow: 0 0 0 3px rgba(245, 138, 60, 0.1);
 }
 
 .form-group textarea {
@@ -181,8 +185,8 @@ footer {
 .btn-cadastro {
     width: 100%;
     padding: 0.8rem;
-    background-color: #d2771c;
-    color: white;
+    background-color: var(--laranja-bola);
+    color: var(--bg-escuro);
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -192,18 +196,17 @@ footer {
 }
 
 .btn-cadastro:hover {
-    background-color: #ff6b6b;
+    background-color: var(--chama-vermelha);
 }
 
 .img {
-
     width: 150px;
     border-radius: 10%;
     height: auto;
     margin-bottom: 1rem;
+    border: 3px solid var(--dourado-titulo);
 }
 
-/* Container para conteúdo */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -211,42 +214,44 @@ footer {
 }
 
 /* Seção História do Basquete */
-.historico {
-    background: white;
+.histórico {
+    background: var(--bg-escuro);
     padding: 4rem 2rem;
     margin: 2rem auto;
     max-width: 1100px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    color: var(--bg-escuro);
 }
 
-.historico h2 {
-    color: #1a1a2e;
+.histórico h2 {
+    color: var(--dourado-titulo);
     margin-bottom: 1rem;
     font-size: 2rem;
     text-align: center;
 }
 
-.conteudo-historico {
+.conteudo-histórico {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     align-items: center;
 }
 
-.conteudo-historico img {
+.conteudo-histórico img {
     width: 65%;
     border-radius: 15px;
     height: auto;
     object-fit: fill;
     justify-content: right;
 }
+
 .bloco.invertido {
   flex-direction: row-reverse;
   justify-content: first baseline;
 }
 
-.conteudo-historico p {
+.conteudo-histórico p {
     line-height: 1.6;
     color: #333;
     font-size: 1.1rem;
@@ -254,15 +259,16 @@ footer {
 
 /* Galeria de Imagens */
 .galeria {
-    background: #f8f9fa;
+    background: var(--bg-escuro);
     padding: 4rem 2rem;
     margin: 2rem auto;
     max-width: 1100px;
     border-radius: 8px;
+    color: var(--bg-escuro);
 }
 
 .galeria h2 {
-    color: #1a1a2e;
+    color: var(--dourado-titulo);
     margin-bottom: 2rem;
     text-align: center;
     font-size: 2rem;
@@ -276,7 +282,7 @@ footer {
 
 .grid-imagens img {
     width: 100%;
-    height: 200px;
+    height: 320px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s;
@@ -284,6 +290,16 @@ footer {
 
 .grid-imagens img:hover {
     transform: scale(1.05);
+}
+
+/* Classes auxiliares do HTML */
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.bloco-invertido {
+    flex-direction: row-reverse;
 }
 
 /* Responsividade */
@@ -301,29 +317,8 @@ footer {
         font-size: 2rem;
     }
 
-    .conteudo-historico,
+    .conteudo-histórico,
     .grid-imagens {
         grid-template-columns: 1fr;
-    }
-}
-
-
-
-
- 
-
-
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    nav a {
-        margin: 5px 0;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
     }
 }
