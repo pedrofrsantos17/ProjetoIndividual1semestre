@@ -7,6 +7,13 @@
     <title>PULL UP HOOPS - Cadastro</title>
 </head>
 <body>
+
+    
+        <div class="logo">PULL UP HOOPS</div>
+        <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
+       
+
+
     <div class="cadastro-container">
         <h2>Cadastro</h2>
         <form id="form-cadastro">
@@ -34,75 +41,87 @@
                 <label for="motivo">Por que esse jogador?</label>
                 <textarea id="ipt_motivo" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn-cadastro">Cadastrar</button>
+            <button type="button" id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
         </form>
+        <div id="mensagem-sucesso" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: #4CAF50; background: rgba(0,128,0,0.2);"></div>
     </div>
 
     <script>
-     /*
-   Usando const pois necessito que estes valores não se tornem mutáveis
-     */
+    // Vetor global para armazenar resultados da validação
+    const validacoes = [];
 
-            let isValid = true;
+    document.getElementById('btn-cadastrar').addEventListener('click', function() {
+        // Limpar vetor de validações
+        validacoes.length = 0;
 
-            const nome = ipt_nome.value;
-            const email = ipt_email.value;
-            const senha = ipt_senha.value;
-            const cpf = ipt_cpf.value;
-            const jogador = ipt_jogador.value;
-            const motivo = ipt_motivo.value;
+        // Pegar valores dos inputs usando .value
+        const nome = document.getElementById('ipt_nome').value;
+        const email = document.getElementById('ipt_email').value;
+        const senha = document.getElementById('ipt_senha').value;
+        const cpf = document.getElementById('ipt_cpf').value;
+        const jogador = document.getElementById('ipt_jogador').value;
+        const motivo = document.getElementById('ipt_motivo').value;
 
-            // Validar nome mínimo 3 caracteres
-            if (nome.length < 3) {
-                alert('Nome deve ter no mínimo 3 caracteres');
-                isValid = false;
+        // Validar nome: deve conter letras e ter no mínimo 3 caracteres
+        if (nome.length < 3) {
+            validacoes.push('nome_invalido');
+            alert('Nome deve ter no mínimo 3 caracteres');
+        } else if (!nome.match(/^[A-Za-zÀ-ÿ\s]+$/)) {
+            validacoes.push('nome_contém_números');
+            alert('Nome deve conter apenas letras');
+        }
+
+        // Validar email usando includes
+        if (!email.includes('@') || !email.includes('.')) {
+            validacoes.push('email_invalido');
+            alert('Email inválido: deve conter @ e .');
+        }
+
+        // Validar senha: mínimo 8 caracteres, número e letra maiúscula usando includes e indexOf
+        const temMaiuscula = senha.length > 0 && senha.indexOf(senha.toUpperCase !== -1);
+        const temNumero = senha.split('').some(char => !isNaN(char));
+        const temMinimo8 = senha.length >= 8;
+
+        if (!temMinimo8) {
+            validacoes.push('senha_curta');
+            alert('Senha deve ter no mínimo 8 caracteres');
+        } else if (!temNumero) {
+            validacoes.push('sem_numero');
+            alert('Senha deve conter pelo menos 1 número');
+        } else if (!temMaiuscula) {
+            validacoes.push('sem_maiúscula');
+            alert('Senha deve conter pelo menos 1 letra maiúscula');
+        }
+
+        // Validar CPF usando includes e indexOf
+        const cpfLimpo = cpf.replace(/\D/g, '');
+        if (cpfLimpo.length !== 11) {
+            validacoes.push('cpf_comprimento');
+            alert('CPF deve ter 11 dígitos');
+        } else {
+            // Verificar se todos os dígitos são iguais usando indexOf
+            const primeiroDigito = cpfLimpo[0];
+            if (cpfLimpo.split('').every(digito => digito === primeiroDigito)) {
+                validacoes.push('cpf_iguais');
+                alert('CPF inválido: não pode ter todos os dígitos iguais');
             }
+        }
 
-            // Validar email usando expressão regular
-            const Email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!Email.test(email)) {
-                alert('Email inválido');
-                isValid = false;
-            }
+        // Validar motivo usando includes
+        if (motivo.length < 10) {
+            validacoes.push('motivo_curto');
+            alert('O motivo deve ter no mínimo 10 caracteres');
+        }
 
-            // Validar senha segura: mínimo 8 caracteres, 1 número e 1 letra maiúscula
-            const Senha = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-            if (!Senha.test(senha)) {
-                alert('Senha deve ter no mínimo 8 caracteres, pelo menos 1 letra maiúscula e 1 número');
-                isValid = false;
-            }
+        // Se vetor de validações estiver vazio, cadastro foi bem-sucedido
+        if (validacoes.length === 0) {
+            document.getElementById('mensagem-sucesso').style.display = 'block';
+            document.getElementById('mensagem-sucesso').innerHTML = 'Cadastro realizado com sucesso!';
+            // Limpar formulário
+            document.getElementById('form-cadastro').reset();
+        }
+    });
+</script>
 
-            // Validar CPF com loop for
-            const digitosCPF = cpf.replace(/\D/g, '');
-            if (digitosCPF.length !== 11) {
-                alert('CPF deve ter 11 dígitos');
-                isValid = false;
-            } else {
-                // Verificar se todos os dígitos são iguais (ex: 111.111.111-11)
-                let todosIguais = true;
-                for (let i = 1; i < digitosCPF.length; i++) {
-                    if (digitosCPF[i] !== digitosCPF[0]) {
-                        todosIguais = false;
-                        
-                    }
-                }
-                if (todosIguais = false) {
-                    alert('CPF inválido: não pode ter todos os dígitos iguais');
-                    isValid = false;
-                }
-            }
-
-            // Validar motivo mínimo 10 caracteres
-            if (motivo.length < 10) {
-                alert('O motivo deve ter no mínimo 10 caracteres');
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Cadastro realizado com sucesso!');
-                this.submit();
-            }
-        ;
-    </script>
 </body>
 </html>

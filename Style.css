@@ -1,13 +1,24 @@
 :root {
-  --bg-escuro: #0F1A14;
-  --verde-chama: #1E5F41;
-  --dourado-titulo: #E8C25C;
-  --laranja-bola: #F58A3C;
-  --dourado-detalhe: #B8A15A;
-  --chama-clara: #FFF08A;
-  --chama-vermelha: #E8431F;
+  --bg-escuro: #0A0E0C;
+  --verde-chama: #2D5A27;
+  --dourado-titulo: #F5C35E;
+  --laranja-bola: #FF6B35;
+  --dourado-detalhe: #E8B445;
+  --chama-clara: #FFFEe0;
+  --chama-vermelha: #FF453A;
+  --roxo-acento: #6C5CE7;
 }
 
+/* Fundo com gradient linear para a página inteira */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--verde-chama), var(--bg-escuro), var(--laranja-bola));
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.6;
+}
 
 * {
     margin: 0;
@@ -19,11 +30,14 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-escuro);
     color: var(--chama-clara);
+    min-height: 100vh;
 }
 
+/* Header */
 header {
-    background-color: var(--chama-vermelha);
-    color: var(--chama-clara);
+    background: rgba(10, 14, 12, 0.8);
+    backdrop-filter: blur(10px);
+    color: var(--dourado-titulo);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -40,7 +54,7 @@ header {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--dourado-titulo);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 nav a {
@@ -55,6 +69,7 @@ nav a:hover {
     color: var(--laranja-bola);
 }
 
+/* Botões */
 .btn-login, .btn-cadastro {
     padding: 0.5rem 1rem;
     background-color: var(--laranja-bola);
@@ -69,48 +84,66 @@ nav a:hover {
     background-color: var(--chama-vermelha);
 }
 
+.btn-cadastro:hover {
+    background-color: var(--chama-vermelha);
+}
+
+/* Hero Section */
 .hero {
     min-height: 100vh;
-    background-color: var(--bg-escuro);
-    background: linear-gradient(135deg, var(--verde-chama), var(--laranja-bola)), url('https://images.unsplash.com/photo-1546519453-5d9d255e1b8e?w=1920&q=80');
-    background-size: cover;
-    background-position: center;
+    padding: 200px 2rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
-    color: var(--bg-escuro);
-    margin-top: 60px;
-    padding: 2rem;
+    color: var(--chama-clara);
+    position: relative;
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
     color: var(--dourado-titulo);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    line-height: 1.2;
 }
 
 .hero p {
-    color: var(--bg-escuro);
-    font-size: 1.2rem;
+    color: var(--chama-clara);
+    font-size: 1.3rem;
     margin-bottom: 2rem;
     max-width: 600px;
+    opacity: 0.9;
 }
 
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--laranja-bola), var(--dourado-titulo));
+  border-radius: 2px;
+}
+
+/* Main */
 main {
     color: var(--bg-escuro);
     max-width: 1100px;
     margin: -100px auto 0;
-    background: var(--chama-vermelha);
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
     padding-bottom: 40px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border-radius: 0 0 20px 20px;
 }
 
+/* Seções */
 section {
     padding: 3rem 2rem;
-    border-bottom: 1px solid var(--dourado-detalhe);
+    border-bottom: 2px solid var(--dourado-detalhe);
     color: var(--bg-escuro);
 }
 
@@ -124,31 +157,41 @@ h2 {
     font-size: 2rem;
 }
 
-p {
-    line-height: 1.6;
-    color: var(--bg-escuro);
-}
-
+/* Footer */
 footer {
-    background-color: var(--dourado-detalhe);
+    background: linear-gradient(135deg, var(--dourado-detalhe), var(--bg-escuro));
     color: var(--bg-escuro);
     text-align: center;
     padding: 2rem;
     margin-top: 40px;
 }
 
+/* Cadastro Container */
 .cadastro-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 2rem auto;
-    padding: 2rem;
-    background: var(--bg-escuro);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    color: var(--bg-escuro);
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--bg-escuro), #1a2413);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
 }
 
+.cadastro-container h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--dourado-titulo), var(--laranja-bola));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Form Groups */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .form-group label {
@@ -161,52 +204,59 @@ footer {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.9rem;
     border: 1px solid var(--dourado-detalhe);
-    border-radius: 4px;
+    border-radius: 6px;
     font-family: inherit;
     font-size: 1rem;
-    background-color: var(--bg-escuro);
+    background-color: rgba(255,255,255,0.05);
     color: var(--chama-clara);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--laranja-bola);
-    box-shadow: 0 0 0 3px rgba(245, 138, 60, 0.1);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
 }
 
 .form-group textarea {
-    min-height: 100px;
+    min-height: 120px;
     resize: vertical;
+    font-family: inherit;
 }
 
+/* Botão de cadastro */
 .btn-cadastro {
     width: 100%;
-    padding: 0.8rem;
-    background-color: var(--laranja-bola);
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
     color: var(--bg-escuro);
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .btn-cadastro:hover {
-    background-color: var(--chama-vermelha);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 58, 0.3);
 }
 
+/* Imagem do logo */
 .img {
     width: 150px;
     border-radius: 10%;
     height: auto;
     margin-bottom: 1rem;
     border: 3px solid var(--dourado-titulo);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
+/* Container */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -215,13 +265,14 @@ footer {
 
 /* Seção História do Basquete */
 .histórico {
-    background: var(--bg-escuro);
+    background: linear-gradient(135deg, #1a2413, var(--bg-escuro));
     padding: 4rem 2rem;
     margin: 2rem auto;
     max-width: 1100px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    color: var(--bg-escuro);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
 }
 
 .histórico h2 {
@@ -242,29 +293,30 @@ footer {
     width: 65%;
     border-radius: 15px;
     height: auto;
-    object-fit: fill;
-    justify-content: right;
+    object-fit: cover;
+    transition: transform 0.3s;
 }
 
-.bloco.invertido {
-  flex-direction: row-reverse;
-  justify-content: first baseline;
+.conteudo-histórico img:hover {
+    transform: scale(1.03);
 }
 
 .conteudo-histórico p {
     line-height: 1.6;
-    color: #333;
+    color: var(--chama-clara);
     font-size: 1.1rem;
 }
 
 /* Galeria de Imagens */
 .galeria {
-    background: var(--bg-escuro);
+    background: linear-gradient(135deg, #1a2413, var(--bg-escuro));
     padding: 4rem 2rem;
     margin: 2rem auto;
     max-width: 1100px;
-    border-radius: 8px;
-    color: var(--bg-escuro);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
 }
 
 .galeria h2 {
@@ -282,7 +334,7 @@ footer {
 
 .grid-imagens img {
     width: 100%;
-    height: 320px;
+    height: 280px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s;
@@ -292,7 +344,7 @@ footer {
     transform: scale(1.05);
 }
 
-/* Classes auxiliares do HTML */
+/* Classes auxiliares */
 .img-fluid {
     width: 100%;
     height: auto;
@@ -300,6 +352,17 @@ footer {
 
 .bloco-invertido {
     flex-direction: row-reverse;
+}
+
+
+.mensagem {
+
+margin-bottom: 1.5rem; 
+padding: 0.8rem; 
+border-radius: 6px;
+ display: none; 
+ text-align: center;
+
 }
 
 /* Responsividade */
@@ -314,9 +377,9 @@ footer {
     }
     
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
-
+    
     .conteudo-histórico,
     .grid-imagens {
         grid-template-columns: 1fr;
