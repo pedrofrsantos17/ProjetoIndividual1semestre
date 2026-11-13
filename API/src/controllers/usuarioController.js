@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var basqueteModel = require("../models/aquarioModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -15,29 +14,16 @@ function autenticar(req, res) {
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-
-                        basqueteModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                        return res.json({
+                            id: resultadoAutenticar[0].id_usuario,
+                            nome: resultadoAutenticar[0].nome,
+                            email: resultadoAutenticar[0].email
+                        });
                     } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                        // E-mail ou senha inválidos
+                        return res.status(401).send("E-mail ou senha inválidos");
                     }
                 }
             ).catch(
@@ -56,39 +42,50 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+    var cpf = req.body.cpfServer;
+    var jogadorFavorito = req.body.jogadorFavoritoServer;
+    var motivo = req.body.motivoServer;
 
-    // Faça as validações dos valores
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
-    } else {
-
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+    // Faça as validações dos valores (a API não pode confiar apenas no front-end)
+    if (nome == undefined || nome == "" || nome.length < 3) {
+        return res.status(400).send("Nome deve ter no mínimo 3 caracteres");
+    } else if (!nome.match(/^[A-Za-zÀ-ÿ\s]+$/)) {
+        return res.status(400).send("Nome deve conter apenas letras");
+    } else if (email == undefined || email == "" || !email.includes("@") || !email.includes(".") || email.lastIndexOf("@") > email.lastIndexOf(".")) {
+        return res.status(400).send("Email inválido: deve conter @ e .");
+    } else if (senha == undefined || senha == "" || senha.length < 8) {
+        return res.status(400).send("Senha deve ter no mínimo 8 caracteres");
+    } else if (!senha.split("").some(function (char) { return !isNaN(char); })) {
+        return res.status(400).send("Senha deve ter pelo menos 1 número");
+    } else if (senha !== senha.toUpperCase()) {
+        return res.status(400).send("Senha deve ter pelo menos 1 letra maiúscula");
+    } else if (cpf == undefined || cpf == "" || cpf.replace(/\D/g, "").length !== 11) {
+        return res.status(400).send("CPF deve ter 11 dígitos");
+    } else if (motivo == undefined || motivo == "" || motivo.length < 10) {
+        return res.status(400).send("O motivo deve ter no mínimo 10 caracteres");
     }
+
+    usuarioModel.cadastrar(nome, email, senha, cpf, jogadorFavorito, motivo)
+        .then(
+            function (resultado) {
+                return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
+            }
+        ).catch(
+            function (erro) {
+                if (erro && erro.code === "ER_DUP_ENTRY") {
+                    if (erro.message.includes("email")) {
+                        return res.status(409).send("E-mail já cadastrado");
+                    }
+                    return res.status(409).send("CPF já cadastrado");
+                }
+                console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+                return res.status(500).json(erro.sqlMessage);
+            }
+        );
+
 }
 
 module.exports = {
     autenticar,
     cadastrar
-}
+};

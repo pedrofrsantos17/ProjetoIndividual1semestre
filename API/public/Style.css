@@ -1,0 +1,410 @@
+:root {
+  --bg-escuro: #0A0E0C;
+  --verde-chama: #2D5A27;
+  --dourado-titulo: #F5C35E;
+  --laranja-bola: #FF6B35;
+  --dourado-detalhe: #E8B445;
+  --chama-clara: #FFFEe0;
+  --chama-vermelha: #FF453A;
+  --roxo-acento: #6C5CE7;
+}
+
+/* Fundo com gradient linear para a página inteira */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--verde-chama), var(--bg-escuro), var(--laranja-bola));
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-escuro);
+    color: var(--chama-clara);
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background: rgba(10, 14, 12, 0.8);
+    backdrop-filter: blur(10px);
+    color: var(--dourado-titulo);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dourado-titulo);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: var(--dourado-titulo);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--laranja-bola);
+}
+
+/* Botões */
+.btn-login, .btn-cadastro {
+    padding: 0.5rem 1rem;
+    background-color: var(--laranja-bola);
+    color: var(--bg-escuro);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-login:hover {
+    background-color: var(--chama-vermelha);
+}
+
+.btn-cadastro:hover {
+    background-color: var(--chama-vermelha);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    padding: 200px 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: var(--chama-clara);
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--dourado-titulo);
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    line-height: 1.2;
+}
+
+.hero p {
+    color: var(--chama-clara);
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    opacity: 0.9;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--laranja-bola), var(--dourado-titulo));
+  border-radius: 2px;
+}
+
+/* Main */
+main {
+    color: var(--bg-escuro);
+    max-width: 1100px;
+    margin: -100px auto 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    padding-bottom: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border-radius: 0 0 20px 20px;
+}
+
+/* Seções */
+section {
+    padding: 3rem 2rem;
+    border-bottom: 2px solid var(--dourado-detalhe);
+    color: var(--bg-escuro);
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--dourado-detalhe), var(--bg-escuro));
+    color: var(--bg-escuro);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 40px;
+}
+
+/* Cadastro Container */
+.cadastro-container {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--bg-escuro), #1a2413);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
+}
+
+.cadastro-container h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--dourado-titulo), var(--laranja-bola));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Container da tela de Login */
+.login-container {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--bg-escuro), #1a2413);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
+}
+
+.login-container h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--dourado-titulo), var(--laranja-bola));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--dourado-titulo);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid var(--dourado-detalhe);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: rgba(255,255,255,0.05);
+    color: var(--chama-clara);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--laranja-bola);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Botão de cadastro */
+.btn-cadastro {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
+    color: var(--bg-escuro);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.btn-cadastro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 58, 0.3);
+}
+
+/* Imagem do logo */
+.img {
+    width: 150px;
+    border-radius: 10%;
+    height: auto;
+    margin-bottom: 1rem;
+    border: 3px solid var(--dourado-titulo);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Seção História do Basquete */
+.histórico {
+    background: linear-gradient(135deg, #1a2413, var(--bg-escuro));
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
+}
+
+.histórico h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.conteudo-histórico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.conteudo-histórico img {
+    width: 65%;
+    border-radius: 15px;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.conteudo-histórico img:hover {
+    transform: scale(1.03);
+}
+
+.conteudo-histórico p {
+    line-height: 1.6;
+    color: var(--chama-clara);
+    font-size: 1.1rem;
+}
+
+/* Galeria de Imagens */
+.galeria {
+    background: linear-gradient(135deg, #1a2413, var(--bg-escuro));
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid var(--dourado-detalhe);
+    color: var(--chama-clara);
+}
+
+.galeria h2 {
+    color: var(--dourado-titulo);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.grid-imagens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.grid-imagens img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.grid-imagens img:hover {
+    transform: scale(1.05);
+}
+
+/* Classes auxiliares */
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.bloco-invertido {
+    flex-direction: row-reverse;
+}
+
+
+.mensagem {
+
+margin-bottom: 1.5rem; 
+padding: 0.8rem; 
+border-radius: 6px;
+ display: none; 
+ text-align: center;
+
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    nav a {
+        margin: 5px 0;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .conteudo-histórico,
+    .grid-imagens {
+        grid-template-columns: 1fr;
+    }
+}
