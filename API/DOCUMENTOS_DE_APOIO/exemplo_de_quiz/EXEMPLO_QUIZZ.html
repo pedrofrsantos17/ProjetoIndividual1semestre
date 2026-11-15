@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../public/Style.css">
+
 </head>
 
 
@@ -76,30 +77,38 @@
     const listaDeQuestoes = [
 
         {
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
-            alternativaCorreta: "alternativaC"
-        },
-
-        {
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
+            pergunta: "Qual o jogador mais velho da NBA atualmente",
+            alternativaA: "Stephen Curry",
+            alternativaB: "Kevin Durant",
+            alternativaC: "Victor Wenbanyama",
+            alternativaD: "Lebron James",
             alternativaCorreta: "alternativaD"
         },
 
         {
-            pergunta: "Qual destes números é ímpar?",
+            pergunta: "Qual é o brasileiro com mais pontos na história",
+            alternativaA: "Nenê Hilário",
+            alternativaB: "Oscar Schimit",
+            alternativaC: "Leandro Barbosa",
+            alternativaD: "Gui Santos",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Quantos jogadores tem na quadra em um jogo oficial",
             alternativaA: "Dez",
             alternativaB: "Doze",
             alternativaC: "Oito",
             alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Qual é o time com mais títulos da história da NBA",
+            alternativaA: "Los Angeles Lakers",
+            alternativaB: "Golden State Warriors",
+            alternativaC: "Boston Celtics",
+            alternativaD: "Chicago Bulls",
+            alternativaCorreta: "alternativaC"
         }
 
     ]
@@ -271,7 +280,7 @@
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal

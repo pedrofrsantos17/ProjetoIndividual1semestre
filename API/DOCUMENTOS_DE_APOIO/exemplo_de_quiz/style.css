@@ -1,74 +1,178 @@
 /* Não usar pure white or pure black: https://uxplanet.org/basicdesign-never-use-pure-black-in-typography-36138a3327a6 */
 /* The 4-point grid system: https://medium.com/@sainzkike/controlling-spacing-in-design-systems-multiple-spacing-9bf1afec87f */
 
-:root {
-    --primary-brand-color: #ED145B;
-    --secondary-brand-color: #0762C8;
-    --success: #198754;
-    --success-dark: #095c36;
-    --success-light: #9dd3ba;
-    --warning: #ffc107;
-    --warning-dark: #705400;
-    --warning-light: #fdebb3;
-    --danger: #dc3545;
-    --danger-dark: #990c19;
-    --danger-light: #f0c1c6;
-    --new-gray: #CCCCCC;
-    --new-black: #212427;
-    --new-white: #E8E8E8;
-}
+        #pontuacaoEJogo {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-escuro), #1a2413);
+            border: 1px solid var(--dourado-detalhe);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            color: var(--chama-clara);
+        }
 
-body {
-    color: var(--new-black);
-    background-color: var(--new-white);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+        #jogo {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--dourado-detalhe);
+            border-radius: 12px;
+            padding: 8px;
+        }
 
-button {
-    font-family: monospace;
-    font-weight: bold;
-}
+        #infoQuestao,
+        #perguntaDaQuestaoAtual,
+        #infoAlternativas,
+        #opcoes,
+        #botoes,
+        #pontuacaoDuranteJogo,
+        #pontuacaoFinalJogo,
+        #pontuacaoFinal,
+        #msgFinal {
+            padding: 8px;
+        }
 
-.flex-colunar {
-    display: flex;
-    flex-direction: column;
-}
+        #spanNumeroDaQuestaoAtual,
+        #qtdQuestoes,
+        #spanCertas,
+        #spanErradas,
+        #spanQuestaoExibida {
+            color: var(--chama-clara);
+        }
 
-.width-fit-content {
-    width: fit-content;
-}
+        #spanQuestaoExibida.text-bold {
+            font-weight: bold;
+            color: var(--dourado-titulo);
+        }
 
-.border-primary {
-    border: 3px solid var(--primary-brand-color);
-}
+        #infoQuestao span {
+            color: var(--dourado-titulo);
+            font-size: 1.1rem;
+        }
 
-.border-secondary {
-    border: 3px solid var(--secondary-brand-color);
-}
+        #btnIniciarQuiz,
+        #btnSubmeter,
+        #btnProx,
+        #btnTentarNovamente {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 0.75rem;
+            background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
+            color: var(--bg-escuro);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
 
-.padding-8 {
-    padding: 8px;
-}
+        #btnIniciarQuiz:hover,
+        #btnSubmeter:hover,
+        #btnProx:hover,
+        #btnTentarNovamente:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
 
-.text-bold {
-    font-weight: bold;
-}
+        #opcoes {
+            gap: 0.5rem;
+        }
 
-.text-success-with-bg {
-    color: var(--success-dark);
-    background-color: var(--success-light);
-}
+        #opcoes span {
+            display: block;
+        }
 
-.text-warning-with-bg {
-    color: var(--warning-dark);
-    background-color: var(--warning-light);
-}
+        #opcoes .option {
+            display: block;
+            padding: 0.9rem 1rem;
+            margin-top: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--dourado-detalhe);
+            border-radius: 8px;
+            color: var(--chama-clara);
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+        }
 
-.text-danger-with-bg {
-    color: var(--danger-dark);
-    background-color: var(--danger-light);
-}
+        #opcoes .option:hover {
+            border-color: var(--laranja-bola);
+        }
 
-.text-new-gray {
-    color: var(--new-gray);
-}
+        #opcoes input.radio {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--laranja-bola);
+        }
+
+        .flex-colunar {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .width-fit-content {
+            width: fit-content;
+        }
+
+        .border-primary {
+            border: 3px solid var(--dourado-titulo);
+        }
+
+        .border-secondary {
+            border: 3px solid var(--laranja-bola);
+        }
+
+        .padding-8 {
+            padding: 8px;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .text-success-with-bg {
+            color: #8CE99A;
+            background-color: rgba(46, 125, 50, 0.35);
+        }
+
+        .text-warning-with-bg {
+            color: var(--dourado-titulo);
+            background-color: rgba(245, 195, 94, 0.18);
+        }
+
+        .text-danger-with-bg {
+            color: #FF9B92;
+            background-color: rgba(255, 69, 58, 0.2);
+        }
+
+        .text-new-gray {
+            color: var(--chama-clara);
+            opacity: 0.75;
+        }
+
+        #opcoes .option.text-success-with-bg,
+        #opcoes .option.text-danger-with-bg,
+        #opcoes .option.text-warning-with-bg {
+            color: inherit;
+        }
+
+        #opcoes .option.text-success-with-bg {
+            color: #8CE99A;
+            background-color: rgba(46, 125, 50, 0.35);
+        }
+
+        #opcoes .option.text-danger-with-bg {
+            color: #FF9B92;
+            background-color: rgba(255, 69, 58, 0.2);
+        }
+
+        #opcoes .option.text-warning-with-bg {
+            color: var(--dourado-titulo);
+            background-color: rgba(245, 195, 94, 0.18);
+        }
+
+        #opcoes .option.text-success-with-bg:hover,
+        #opcoes .option.text-danger-with-bg:hover,
+        #opcoes .option.text-warning-with-bg:hover {
+            border-color: var(--laranja-bola);
+        }
