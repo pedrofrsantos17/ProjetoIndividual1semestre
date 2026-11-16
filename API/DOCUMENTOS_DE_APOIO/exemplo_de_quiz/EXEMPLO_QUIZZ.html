@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
-    <link rel="stylesheet" href="../../public/Style.css">
+    <link rel="stylesheet" href="Style.css">
 
 </head>
 
@@ -120,6 +120,7 @@
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
+    let respostasDoQuiz = [];
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
     function onloadEsconder() {
@@ -133,6 +134,7 @@
         document.getElementById('btnIniciarQuiz').style.display = "none"
 
         document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+        respostasDoQuiz = [];
 
         preencherHTMLcomQuestaoAtual(0)
 
@@ -175,6 +177,14 @@
 
             habilitarAlternativas(false)
 
+            // Guarda a resposta do usuário para enviar à API quando o quiz finalizar
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    respostasDoQuiz.push({ num_questao: numeroDaQuestaoAtual + 1, letra: options[i].value.replace("alternativa", "") });
+                    break;
+                }
+            }
+
             checarResposta()
         }
     }
@@ -196,9 +206,6 @@
         desmarcarRadioButtons()
 
         if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             finalizarJogo()
@@ -294,5 +301,44 @@
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
 
+        // Integração com a API: se o usuário está logado, envia as respostas para o banco
+        if (sessionStorage.ID_USUARIO) {
+            enviarRespostasQuiz();
+        }
+    }
+
+    function enviarRespostasQuiz() {
+        fetch("/quiz/tentar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fk_usuario: parseInt(sessionStorage.ID_USUARIO)
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            }
+            throw "Houve um erro ao iniciar a tentativa do quiz!";
+        }).then(function (data) {
+            var idTentativa = data.id_tentativa;
+            // Envia cada resposta registrada na tentativa
+            return Promise.all(respostasDoQuiz.map(function (resposta) {
+                return fetch("/quiz/respostas", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        fk_tentativa: idTentativa,
+                        num_questao: resposta.num_questao,
+                        letra: resposta.letra
+                    })
+                });
+            }));
+        }).catch(function (erro) {
+            console.log("Erro ao enviar respostas do quiz: " + erro);
+        });
     }
 </script>

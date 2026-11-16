@@ -6,15 +6,17 @@
     <link rel="stylesheet" href="Style.css">
     <title>PULL UP HOOPS - Cadastro</title>
 </head>
+<header>
+       <div class="logo">PULL UP HOOPS</div>
+        <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
+        <nav>
+            <a href="index.html" class="btn-login">Login</a>
+            <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
+        </nav>
+</header>
 <body>
 
-    
-        <div class="logo">PULL UP HOOPS</div>
-        <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
-       
-
-
-    <div class="cadastro-container">
+    <div class="cadastro-container" style="margin-top: 90px;">
         <h2>Cadastro</h2>
         <form id="form-cadastro">
             <div class="form-group">
@@ -27,26 +29,29 @@
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="ipt_senha" name="senha" required>
+                <input type="password" id="ipt_senha"  required>
+                <button class="btn-cadastro" onclick="mostrarsenha()">Mostrar senha</button>
             </div>
-            <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" id="ipt_cpf" name="cpf" required>
+        
             </div>
-            <div class="form-group">
-                <label for="jogador">Jogador favorito da NBA</label>
-                <input type="text" id="ipt_jogador" name="jogador">
-            </div>
-            <div class="form-group">
-                <label for="motivo">Por que esse jogador?</label>
-                <textarea id="ipt_motivo" rows="3"></textarea>
-            </div>
-            <button type="button" id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
+        
+            <button id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
         </form>
         <div id="mensagem-sucesso" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: #4CAF50; background: rgba(0,128,0,0.2);"></div>
     </div>
 
     <script>
+
+        // função para mostrar a senha
+
+        function mostrarsenha(){
+            const senha = document.getElementById("ipt_senha")
+            if(senha.type === "password"){
+                senha.type = "text"
+            } else {
+                senha.type = "password"
+            }
+        }
     // Vetor global para armazenar resultados da validação
     const validacoes = [];
 

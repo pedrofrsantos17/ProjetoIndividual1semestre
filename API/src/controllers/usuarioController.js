@@ -42,9 +42,6 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var cpf = req.body.cpfServer;
-    var jogadorFavorito = req.body.jogadorFavoritoServer;
-    var motivo = req.body.motivoServer;
 
     // Faça as validações dos valores (a API não pode confiar apenas no front-end)
     if (nome == undefined || nome == "" || nome.length < 3) {
@@ -59,30 +56,23 @@ function cadastrar(req, res) {
         return res.status(400).send("Senha deve ter pelo menos 1 número");
     } else if (senha !== senha.toUpperCase()) {
         return res.status(400).send("Senha deve ter pelo menos 1 letra maiúscula");
-    } else if (cpf == undefined || cpf == "" || cpf.replace(/\D/g, "").length !== 11) {
-        return res.status(400).send("CPF deve ter 11 dígitos");
-    } else if (motivo == undefined || motivo == "" || motivo.length < 10) {
-        return res.status(400).send("O motivo deve ter no mínimo 10 caracteres");
     }
 
-    usuarioModel.cadastrar(nome, email, senha, cpf, jogadorFavorito, motivo)
-        .then(
-            function (resultado) {
-                return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
-            }
-        ).catch(
-            function (erro) {
-                if (erro && erro.code === "ER_DUP_ENTRY") {
-                    if (erro.message.includes("email")) {
-                        return res.status(409).send("E-mail já cadastrado");
-                    }
-                    return res.status(409).send("CPF já cadastrado");
+    usuarioModel.cadastrar(nome, email, senha).then(
+        function (resultado) {
+            return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
+        }
+    ).catch(
+        function (erro) {
+            if (erro && erro.code === "ER_DUP_ENTRY") {
+                if (erro.message.includes("email")) {
+                    return res.status(409).send("E-mail já cadastrado");
                 }
-                console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
-                return res.status(500).json(erro.sqlMessage);
+                return res.status(409).send("CPF já cadastrado");
             }
-        );
-
+            return res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 module.exports = {

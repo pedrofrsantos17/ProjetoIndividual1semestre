@@ -38,7 +38,7 @@ header {
     background: rgba(10, 14, 12, 0.8);
     backdrop-filter: blur(10px);
     color: var(--dourado-titulo);
-    padding: 1rem 2rem;
+    padding: 0rem 1.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,6 +52,7 @@ header {
     font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
+    align-items: center;
     letter-spacing: 1px;
     color: var(--dourado-titulo);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
@@ -251,12 +252,15 @@ footer {
 }
 
 /* Botão de cadastro */
-.btn-cadastro {
-    width: 100%;
-    padding: 1rem;
+button.btn-cadastro {
+    display: block;
+    width: 40%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.7rem;
     background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
     color: var(--bg-escuro);
-    border: none;
+    border: none;  
     border-radius: 6px;
     font-size: 1rem;
     font-weight: bold;
@@ -274,7 +278,9 @@ footer {
     width: 150px;
     border-radius: 10%;
     height: auto;
-    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
     border: 3px solid var(--dourado-titulo);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }

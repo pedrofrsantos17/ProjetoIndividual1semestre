@@ -10,16 +10,16 @@ function autenticar(email, senha) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, senha, cpf, jogadorFavorito, motivo) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, jogadorFavorito);
+function cadastrar(nome, email, senha) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados. Usando parâmetros (?) para evitar SQL injection.
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, cpf, jogador_favorito, motivo, dt_cadastro) VALUES (?, ?, ?, ?, ?, ?, NOW());
+        INSERT INTO usuario (nome, email, senha, dt_cadastro) VALUES (?, ?, ?, NOW());
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql, [nome, email, senha, cpf, jogadorFavorito, motivo]);
+    return database.executar(instrucaoSql, [nome, email, senha]);
 }
 
 module.exports = {
