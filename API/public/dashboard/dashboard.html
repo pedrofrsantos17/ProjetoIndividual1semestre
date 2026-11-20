@@ -24,6 +24,78 @@
 
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg-escuro: #0A0E0C;
+            --verde-chama: #2D5A27;
+            --dourado-titulo: #F5C35E;
+            --laranja-bola: #FF6B35;
+            --dourado-detalhe: #E8B445;
+            --chama-clara: #FFFEe0;
+            --chama-vermelha: #FF453A;
+            --roxo-acento: #6C5CE7;
+        }
+
+        #resultadosQuiz {
+            padding: 20px;
+            color: var(--chama-clara);
+        }
+
+        .cards-resumo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .card-resumo {
+            background-color: #212124;
+            border: 1px solid var(--dourado-detalhe);
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .card-resumo .numero {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--laranja-bola);
+        }
+
+        .card-resumo .rotulo {
+            font-size: 0.85rem;
+            color: #d8d8d8;
+        }
+
+        #listaTentativas {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .item-tentativa {
+            background-color: #212124;
+            border-left: 3px solid var(--laranja-bola);
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            color: var(--chama-clara);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .sem-dados {
+            text-align: center;
+            color: #d8d8d8;
+            padding: 20px;
+        }
+    </style>
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -71,6 +143,19 @@
             </div>
             <div id="graficos">
             </div>
+
+            <div id="resultadosQuiz">
+                <h3 class="tituloGraficos">Resultados do Quiz</h3>
+                <div class="cards-resumo" id="cardsResumo">
+                    <!-- Os cards de resumo são montados via JavaScript -->
+                </div>
+                <div class="graph">
+                    <canvas id="graficoPizzaClassificacao"></canvas>
+                </div>
+                <div id="listaTentativas">
+                    <!-- A lista de tentativas é montada via JavaScript -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -84,7 +169,11 @@
 
     let proximaAtualizacao;
 
-    window.onload = exibirAquariosDoUsuario();
+    window.onload = function() {
+        validarSessao();
+        exibirAquariosDoUsuario();
+        exibirResultadosQuiz();
+    };
 
     function exibirAquariosDoUsuario() {
         var aquarios = JSON.parse(sessionStorage.AQUARIOS);
@@ -113,6 +202,165 @@
         if (aquarios.length > 0) {
             exibirAquario(aquarios[0].id)
         }
+    }
+
+    // ---------- Resultados do Quiz ----------
+
+    let graficoPizza = null;
+
+    // Busca as tentativas finalizadas do quiz na API e exibe no dashboard
+    function exibirResultadosQuiz() {
+        fetch("/quiz/listar", { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw "Não foi possível carregar os resultados do quiz!";
+            })
+            .then(function (tentativas) {
+                console.log(`Dados recebidos do quiz: ${JSON.stringify(tentativas)}`);
+                renderizarResumoQuiz(tentativas);
+                renderizarGraficoPizza(tentativas);
+                renderizarListaTentativas(tentativas);
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos resultados do quiz: ${error}`);
+                document.getElementById("listaTentativas").innerHTML = "Erro ao carregar os resultados do quiz. Tente novamente mais tarde.";
+            });
+    }
+
+    // Monta os cartoes de resumo (tentativas, jogadores, media, melhor e pior resultado)
+    function renderizarResumoQuiz(tentativas) {
+        var totalTentativas = tentativas.length;
+        var quantidadeJogadores = {};
+        var somaPercentual = 0;
+        var maiorPercentual = 0;
+        var menorPercentual = 0;
+
+        for (var i = 0; i < tentativas.length; i++) {
+            var t = tentativas[i];
+            quantidadeJogadores[t.fk_usuario] = true;
+            somaPercentual += t.percentual;
+
+            if (i === 0 || t.percentual > maiorPercentual) {
+                maiorPercentual = t.percentual;
+            }
+            if (i === 0 || t.percentual < menorPercentual) {
+                menorPercentual = t.percentual;
+            }
+        }
+
+        var mediaPercentual = tentativas.length > 0 ? (somaPercentual / tentativas.length) : 0;
+
+        document.getElementById("cardsResumo").innerHTML = `
+            <div class="card-resumo">
+                <span class="numero">${totalTentativas}</span>
+                <span class="rotulo">Tentativas</span>
+            </div>
+            <div class="card-resumo">
+                <span class="numero">${Object.keys(quantidadeJogadores).length}</span>
+                <span class="rotulo">Jogadores</span>
+            </div>
+            <div class="card-resumo">
+                <span class="numero">${mediaPercentual.toFixed(1)}%</span>
+                <span class="rotulo">Média</span>
+            </div>
+            <div class="card-resumo">
+                <span class="numero">${maiorPercentual}%</span>
+                <span class="rotulo">Melhor</span>
+            </div>
+            <div class="card-resumo">
+                <span class="numero">${menorPercentual}%</span>
+                <span class="rotulo">Pior</span>
+            </div>
+        `;
+    }
+
+    // Monta o grafico de pizza com a distribuicao das classificacoes
+    function renderizarGraficoPizza(tentativas) {
+        var lista = document.getElementById("listaTentativas");
+
+        if (!tentativas || tentativas.length === 0) {
+            if (graficoPizza) {
+                graficoPizza.destroy();
+                graficoPizza = null;
+            }
+            document.getElementById("graficoPizzaClassificacao").style.display = "none";
+            lista.innerHTML = "<p class='sem-dados'>Ainda não há dados</p>";
+            return;
+        }
+
+        document.getElementById("graficoPizzaClassificacao").style.display = "block";
+
+        if (graficoPizza) {
+            graficoPizza.destroy();
+        }
+
+        var distribuicao = { INSUFICIENTE: 0, REGULAR: 0, EXCELENTE: 0 };
+
+        for (var i = 0; i < tentativas.length; i++) {
+            var t = tentativas[i];
+            if (distribuicao[t.classificacao] !== undefined) {
+                distribuicao[t.classificacao] = distribuicao[t.classificacao] + 1;
+            }
+        }
+
+        graficoPizza = new Chart(document.getElementById("graficoPizzaClassificacao"), {
+            type: 'pie',
+            data: {
+                labels: ["INSUFICIENTE", "REGULAR", "EXCELENTE"],
+                datasets: [
+                    {
+                        label: "Tentativas",
+                        data: [
+                            distribuicao.INSUFICIENTE,
+                            distribuicao.REGULAR,
+                            distribuicao.EXCELENTE
+                        ],
+                        backgroundColor: [
+                            "rgb(255, 69, 58)",
+                            "rgb(245, 195, 94)",
+                            "rgb(255, 107, 53)"
+                        ],
+                        borderColor: "#161618",
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: "#FFFEe0" }
+                    }
+                }
+            }
+        });
+    }
+
+    // Monta a lista de tentativas finalizadas
+    function renderizarListaTentativas(tentativas) {
+        var lista = document.getElementById("listaTentativas");
+
+        if (!tentativas || tentativas.length === 0) {
+            return;
+        }
+
+        var html = "";
+        for (var i = 0; i < tentativas.length; i++) {
+            var t = tentativas[i];
+            html += `
+                <div class="item-tentativa">
+                    <span><strong>Tentativa #${t.id_tentativa}</strong> - ${t.dt_inicio}</span>
+                    <span>${t.acertos} de ${t.total_questoes} acertos (${t.erros} erros)</span>
+                    <span><strong>${t.percentual}%</strong> - ${t.classificacao}</span>
+                </div>
+            `;
+        }
+
+        lista.innerHTML = html;
     }
 
     function alterarTitulo(idAquario) {
@@ -257,7 +505,7 @@
 
 
 
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/quiz//${idAquario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 

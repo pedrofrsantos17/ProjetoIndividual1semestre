@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
     <title>PULL UP HOOPS - Cadastro</title>
 </head>
-<body>
-
-    <header>
-        <div class="logo">PULL UP HOOPS</div>
+<header>
+       <div class="logo">PULL UP HOOPS</div>
         <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
         <nav>
             <a href="index.html" class="btn-login">Login</a>
             <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
         </nav>
-    </header>
+</header>
+<body>
 
     <div class="cadastro-container" style="margin-top: 90px;">
         <h2>Cadastro</h2>
@@ -30,131 +29,104 @@
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="ipt_senha" name="senha" required>
+                <input type="password" id="ipt_senha"  required>
+                <button class="btn-cadastro" onclick="mostrarsenha()">Mostrar senha</button>
             </div>
-            <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" id="ipt_cpf" name="cpf" required>
+        
             </div>
-            <div class="form-group">
-                <label for="jogador">Jogador favorito da NBA</label>
-                <input type="text" id="ipt_jogador" name="jogador">
-            </div>
-            <div class="form-group">
-                <label for="motivo">Por que esse jogador?</label>
-                <textarea id="ipt_motivo" rows="3"></textarea>
-            </div>
-            <button type="button" id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
+        
+            <button id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
         </form>
         <div id="mensagem-sucesso" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: #4CAF50; background: rgba(0,128,0,0.2);"></div>
-        <div id="mensagem-erro" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: var(--chama-vermelha); background: rgba(255,69,58,0.15);"></div>
     </div>
 
     <script>
-        // Vetor global para armazenar resultados da validação
-        const validacoes = [];
 
-        document.getElementById('btn-cadastrar').addEventListener('click', function () {
-            // Limpar vetor de validações
-            validacoes.length = 0;
+        // função para mostrar a senha
 
-            // Pegar valores dos inputs usando .value
-            const nome = document.getElementById('ipt_nome').value;
-            const email = document.getElementById('ipt_email').value;
-            const senha = document.getElementById('ipt_senha').value;
-            const cpf = document.getElementById('ipt_cpf').value;
-            const jogador = document.getElementById('ipt_jogador').value;
-            const motivo = document.getElementById('ipt_motivo').value;
-
-            // Validar nome: deve conter letras e ter no mínimo 3 caracteres
-            if (nome.length < 3) {
-                validacoes.push('nome_invalido');
-                alert('Nome deve ter no mínimo 3 caracteres');
-            } else if (!nome.match(/^[A-Za-zÀ-ÿ\s]+$/)) {
-                validacoes.push('nome_invalido');
-                alert('Nome deve conter apenas letras');
-            }
-
-            // Validar email usando includes
-            const emailValido = email.includes('@') && email.includes('.') && email.lastIndexOf('@') < email.lastIndexOf('.');
-            if (!emailValido || /\s/.test(email)) {
-                validacoes.push('email_invalido');
-                alert('Email inválido: deve conter @ e .');
-            }
-
-            // Validar senha: mínimo 8 caracteres, número e letra maiúscula usando includes e indexOf
-            const temMinimo8 = senha.length >= 8;
-            const temNumero = senha.split('').some(function (char) { return !isNaN(char); });
-            const temMaiuscula = senha !== senha.toLowerCase();
-
-            if (!temMinimo8) {
-                validacoes.push('senha_curta');
-                alert('Senha deve ter no mínimo 8 caracteres');
-            } else if (!temNumero) {
-                validacoes.push('sem_numero');
-                alert('Senha deve conter pelo menos 1 número');
-            } else if (!temMaiuscula) {
-                validacoes.push('sem_maiuscula');
-                alert('Senha deve ter pelo menos 1 letra maiúscula');
-            }
-
-            // Validar CPF usando regex e split
-            const cpfLimpo = cpf.replace(/\D/g, '');
-            if (cpfLimpo.length !== 11) {
-                validacoes.push('cpf_comprimento');
-                alert('CPF deve ter 11 dígitos');
+        function mostrarsenha(){
+            const senha = document.getElementById("ipt_senha")
+            if(senha.type === "password"){
+                senha.type = "text"
             } else {
-                const primeiroDigito = cpfLimpo[0];
-                const todosIguais = cpfLimpo.split('').every(function (digito) { return digito === primeiroDigito; });
-                if (todosIguais) {
-                    validacoes.push('cpf_iguais');
-                    alert('CPF inválido: não pode ter todos os dígitos iguais');
+                senha.type = "password"
+            }
+        }
+    // Vetor global para armazenar resultados da validação
+    const validacoes = [];
+
+    document.getElementById('btn-cadastrar').addEventListener('click', function() {
+        // Limpar vetor de validações
+        validacoes.length = 0;
+
+        // Pegar valores dos inputs usando .value
+        const nome = document.getElementById('ipt_nome').value;
+        const email = document.getElementById('ipt_email').value;
+        const senha = document.getElementById('ipt_senha').value;
+
+        // Validar nome: deve conter letras e ter no mínimo 3 caracteres
+        if (nome.length < 3) {
+            validacoes.push('nome_invalido');
+            alert('Nome deve ter no mínimo 3 caracteres');
+        } else if (!nome.match(/^[A-Za-zÀ-ÿ\s]+$/)) {
+            validacoes.push('nome_contém_números');
+            alert('Nome deve conter apenas letras');
+        }
+
+        // Validar email usando includes
+        if (!email.includes('@') || !email.includes('.')) {
+            validacoes.push('email_invalido');
+            alert('Email inválido: deve conter @ e .');
+        }
+
+        // Validar senha: mínimo 8 caracteres, número e letra maiúscula
+        const temMaiuscula = /[A-Z]/.test(senha);
+        const temNumero = /\d/.test(senha);
+        const temMinimo8 = senha.length >= 8;
+
+        if (!temMinimo8) {
+            validacoes.push('senha_curta');
+            alert('Senha deve ter no mínimo 8 caracteres');
+        } else if (!temNumero) {
+            validacoes.push('sem_numero');
+            alert('Senha deve conter pelo menos 1 número');
+        } else if (!temMaiuscula) {
+            validacoes.push('sem_maiúscula');
+            alert('Senha deve conter pelo menos 1 letra maiúscula');
+        }
+
+        // Se vetor de validações estiver vazio, cadastro foi bem-sucedido
+        if (validacoes.length === 0) {
+
+            // Rota de cadastro da API
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nome,
+                    emailServer: email,
+                    senhaServer: senha
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
                 }
-            }
+                throw "Houve um erro ao cadastrar o usuário!";
+            }).then(function (data) {
+                document.getElementById('mensagem-sucesso').style.display = 'block';
+                document.getElementById('mensagem-sucesso').innerHTML = data.mensagem;
+                // Limpar formulário
+                document.getElementById('form-cadastro').reset();
+            }).catch(function (erro) {
+                document.getElementById('mensagem-sucesso').style.display = 'block';
+                document.getElementById('mensagem-sucesso').innerHTML = "Erro ao cadastrar: " + erro;
+            });
 
-            // Validar motivo usando trim e length
-            if (motivo.trim().length < 10) {
-                validacoes.push('motivo_curto');
-                alert('O motivo deve ter no mínimo 10 caracteres');
-            }
-
-            // Se vetor de validações estiver vazio, cadastro foi bem-sucedido
-            if (validacoes.length === 0) {
-                // Integração com a API: envia os dados para o backend
-                fetch("/usuarios/cadastrar", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        nomeServer: nome,
-                        emailServer: email,
-                        senhaServer: senha,
-                        cpfServer: cpf,
-                        jogadorFavoritoServer: jogador,
-                        motivoServer: motivo
-                    })
-                }).then(function (resposta) {
-                    if (resposta.ok) {
-                        document.getElementById('mensagem-sucesso').style.display = 'block';
-                        document.getElementById('mensagem-sucesso').innerHTML = 'Cadastro realizado com sucesso!';
-                        document.getElementById('form-cadastro').reset();
-                    } else {
-                        resposta.text().then(function (texto) {
-                            document.getElementById('mensagem-erro').style.display = 'block';
-                            document.getElementById('mensagem-erro').innerHTML = texto;
-                        });
-                    }
-                }).catch(function (erro) {
-                    console.log(erro);
-                    document.getElementById('mensagem-erro').style.display = 'block';
-                    document.getElementById('mensagem-erro').innerHTML = 'Não foi possível realizar o cadastro agora. Tente novamente.';
-                });
-
-                return false;
-            }
-        });
-    </script>
+        }
+    });
+</script>
 
 </body>
 </html>
