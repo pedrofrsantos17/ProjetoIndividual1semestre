@@ -205,7 +205,7 @@
 
         desmarcarRadioButtons()
 
-        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes ) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             finalizarJogo()
@@ -305,6 +305,7 @@
         if (sessionStorage.ID_USUARIO) {
             enviarRespostasQuiz();
         }
+        document.getElementById('msgFinal').innerHTML += '<br><a href="dashboard/dashboard.html">Ver resultados</a>';
     }
 
     function enviarRespostasQuiz() {
