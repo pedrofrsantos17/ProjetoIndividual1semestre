@@ -1,5 +1,7 @@
-# A linha abaixo determina que o diretório node_modules não será enviado ao repositório remoto
+# Os arquivos que não irão subir ao repositório
 node_modules
-package-lock.json
+diariodeprompts.md
+PLANO_DA_ENQUETE.md
+PLANO_DE_IMPLEMENTACAO_DASHBOARD.md
 
 .github

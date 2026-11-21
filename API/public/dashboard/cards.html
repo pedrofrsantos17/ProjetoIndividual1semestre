@@ -6,115 +6,238 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Tempo Real</title>
+    <title>PULL UP HOOPS | Cards</title>
 
-
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
-
+    <link rel="stylesheet" href="../Style.css">
     <script src="../js/sessao.js"></script>
-    <script src="../js/alerta.js"></script>
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-escuro: #0A0E0C;
+            --verde-chama: #2D5A27;
+            --dourado-titulo: #F5C35E;
+            --laranja-bola: #FF6B35;
+            --dourado-detalhe: #E8B445;
+            --chama-clara: #FFFEe0;
+            --chama-vermelha: #FF453A;
+            --roxo-acento: #6C5CE7;
+        }
+
+        body {
+            padding-top: 80px;
+        }
+
+        main {
+            margin: 0 auto;
+            max-width: 1100px;
+            padding: 20px 2rem 60px;
+            color: var(--chama-clara);
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .dashboard {
+            width: 100%;
+            padding: 0;
+            border-bottom: none;
+            color: var(--chama-clara);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 700px;
+            margin: 0 auto 10px;
+        }
+
+        .dashboard-header h2 {
+            margin: 0;
+        }
+
+        #resultadosQuiz {
+            padding: 20px;
+            color: var(--chama-clara);
+        }
+
+        .cards-resumo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .card-resumo {
+            background-color: #212124;
+            border: 1px solid var(--dourado-detalhe);
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .card-resumo .numero {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--laranja-bola);
+        }
+
+        .card-resumo .rotulo {
+            font-size: 0.85rem;
+            color: #d8d8d8;
+        }
+
+        .boas-vindas {
+            text-align: center;
+            color: var(--chama-clara);
+            margin-bottom: 10px;
+        }
+
+        .sem-dados {
+            text-align: center;
+            color: #d8d8d8;
+            padding: 20px;
+        }
+
+        .btn-logout {
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
+            color: var(--bg-escuro);
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 15px 1rem 40px;
+            }
+        }
+    </style>
 </head>
 
-<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+<body onload="validarSessao(), exibirCardsResumo()">
 
-    <div class="janela">
+    <header>
+        <div class="logo">PULL UP HOOPS</div>
+        <img class="img" src="../logo.png" alt="PULL UP HOOPS Logo">
+        <nav>
+            <a href="./dashboard.html" class="btn-login">Dashboard</a>
+            <a href="../quiz.html" class="btn-cadastro">Quiz</a>
+        </nav>
+    </header>
 
-        <div class="header-left dash-header">
-
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-
-            <div class="btn-nav">
-                <h3>Aquários e Terrários</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-            <div class="area-parametros-alerta">
-                <p class="titulo-legenda">
-                    Legenda - Parâmetros para Alertas
-                </p>
-                <div class="parametros-alerta">
-                    <div class="item-regua perigo-frio">
-                        <p>Perigo</p>
-                        <p>&lt;=5°C</p>
-                    </div>
-                    <div class="item-regua alerta-frio">
-                        <p>Alerta</p>
-                        <p>&lt;=10°C</p>
-                    </div>
-                    <div class="item-regua ideal">
-                        <p>Ideal</p>
-                        <p>20°C</p>
-                    </div>
-                    <div class="item-regua alerta-quente">
-                        <p>Alerta</p>
-                        <p>&gt;=22°C</p>
-                    </div>
-                    <div class="item-regua perigo-quente">
-                        <p>Perigo</p>
-                        <p>&gt;=23°C</p>
-                    </div>
+    <main>
+        <section class="dashboard">
+            <div class="dashboard-header">
+                <h2>Cards</h2>
+                <div class="btn-logout" onclick="limparSessao()">
+                    <h3>Sair</h3>
                 </div>
             </div>
 
-            <div class="cards" id="cardAquarios">
+            <div id="resultadosQuiz">
+                <div class="cadastro-container">
+                    <p class="boas-vindas">Olá, <span id="b_usuario">usuário</span>! Aqui estão os cards:</p>
 
+                    <div class="cards-resumo" id="cardsResumo">
+                        <!-- Os cards são montados via JavaScript -->
+                    </div>
+                </div>
             </div>
+        </section>
+    </main>
 
-        </div>
+    <footer>
+        <p>2026. Pedro Henrique Ferreira Rodrigues Santos</p>
+    </footer>
 
-    </div>
+    <script>
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+        // Busca os resultados do quiz na API e exibe os cards de resumo
+        function exibirCardsResumo() {
+            fetch("/quiz/listar", { cache: 'no-store' })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw "Não foi possível carregar os cards do quiz!";
+                })
+                .then(function (tentativas) {
+                    renderizarResumoQuiz(tentativas);
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos cards do quiz: ${error}`);
+                    document.getElementById("cardsResumo").innerHTML = "<p class='sem-dados'>Erro ao carregar os cards. Tente novamente mais tarde.</p>";
+                });
+        }
+
+        // Monta os cartões de resumo (tentativas, jogadores, media, melhor e pior resultado)
+        function renderizarResumoQuiz(tentativas) {
+            var totalTentativas = tentativas.length;
+            var quantidadeJogadores = {};
+            var somaPercentual = 0;
+            var maiorPercentual = 0;
+            var menorPercentual = 0;
+
+            for (var i = 0; i < tentativas.length; i++) {
+                var t = tentativas[i];
+                quantidadeJogadores[t.fk_usuario] = true;
+                somaPercentual += t.percentual;
+
+                if (i === 0 || t.percentual > maiorPercentual) {
+                    maiorPercentual = t.percentual;
+                }
+                if (i === 0 || t.percentual < menorPercentual) {
+                    menorPercentual = t.percentual;
+                }
+            }
+
+            var mediaPercentual = tentativas.length > 0 ? (somaPercentual / tentativas.length) : 0;
+
+            document.getElementById("cardsResumo").innerHTML = `
+                <div class="card-resumo">
+                    <span class="numero">${totalTentativas}</span>
+                    <span class="rotulo">Tentativas</span>
+                </div>
+                <div class="card-resumo">
+                    <span class="numero">${Object.keys(quantidadeJogadores).length}</span>
+                    <span class="rotulo">Jogadores</span>
+                </div>
+                <div class="card-resumo">
+                    <span class="numero">${mediaPercentual.toFixed(1)}%</span>
+                    <span class="rotulo">Média</span>
+                </div>
+                <div class="card-resumo">
+                    <span class="numero">${maiorPercentual}%</span>
+                    <span class="rotulo">Melhor</span>
+                </div>
+                <div class="card-resumo">
+                    <span class="numero">${menorPercentual}%</span>
+                    <span class="rotulo">Pior</span>
+                </div>
+            `;
+        }
+    </script>
 
 </body>
-
-<script>
-
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
-                        </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
-                        </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
-                    </div>
-                    `
-        });
-    }
-
-</script>
 
 </html>

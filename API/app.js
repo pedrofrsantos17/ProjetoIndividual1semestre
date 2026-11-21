@@ -17,12 +17,13 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
+
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 
 var quizRouter = require("./src/routes/quiz");
+var enquetesRouter = require("./src/routes/enquetes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,11 +33,11 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-
 app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
-app.use("quiz.html", quizRouter);
+app.use("/quiz", quizRouter);
+app.use("/enquetes", enquetesRouter);
 
 
 app.listen(PORTA_APP, function () {

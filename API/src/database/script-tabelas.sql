@@ -153,6 +153,14 @@ SELECT classificacao, COUNT(*) AS quantidade
 FROM vw_resultado_tentativa
 GROUP BY classificacao;
 
+-- 7. NOVA TABELA: ENQUETE 
+
+CREATE TABLE enquete (
+    id_enquete  INT AUTO_INCREMENT PRIMARY KEY,
+    resposta    VARCHAR(10) NOT NULL,   -- 'SIM' ou 'NAO'
+    dt_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Criando Usuario para insert e select
 CREATE USER  'insert_select'@'%' IDENTIFIED BY 'Stark1105*';
 GRANT SELECT, INSERT ON pull_up_hoops.* TO 'insert_select'@'%';

@@ -1,18 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
     <title>PULL UP HOOPS - Cadastro</title>
+
+    <style>
+        /* Ajustes visuais do cadastro */
+        nav .btn-login,
+        nav .btn-cadastro {
+            width: auto;
+            display: inline-block;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .btn-mostrar-senha {
+            width: fit-content;
+            margin: 0.5rem auto 0;
+            display: block;
+        }
+    </style>
 </head>
 <header>
-       <div class="logo">PULL UP HOOPS</div>
-        <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
-        <nav>
-            <a href="index.html" class="btn-login">Login</a>
-            <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
-        </nav>
+    <div class="logo">PULL UP HOOPS</div>
+    <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
+    <nav>
+        <a href="index.html" class="btn-login">Login</a>
+        <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
+    </nav>
 </header>
 <body>
 
@@ -29,13 +47,11 @@
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="ipt_senha"  required>
-                <button class="btn-cadastro" onclick="mostrarsenha()">Mostrar senha</button>
+                <input type="password" id="ipt_senha" required>
+                <button type="button" class="btn-mostrar-senha" onclick="mostrarsenha()">Mostrar senha</button>
             </div>
-        
-            </div>
-        
-            <button id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
+
+            <button type="button" id="btn-cadastrar" class="btn-cadastro">Cadastrar</button>
         </form>
         <div id="mensagem-sucesso" style="margin-top: 2rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: #4CAF50; background: rgba(0,128,0,0.2);"></div>
     </div>
@@ -55,7 +71,10 @@
     // Vetor global para armazenar resultados da validação
     const validacoes = [];
 
-    document.getElementById('btn-cadastrar').addEventListener('click', function() {
+    document.getElementById('btn-cadastrar').addEventListener('click', function(event) {
+        // Impede o envio padrão do formulário (que recarregaria a página e abortaria o fetch)
+        event.preventDefault();
+
         // Limpar vetor de validações
         validacoes.length = 0;
 
@@ -89,10 +108,10 @@
             alert('Senha deve ter no mínimo 8 caracteres');
         } else if (!temNumero) {
             validacoes.push('sem_numero');
-            alert('Senha deve conter pelo menos 1 número');
+            alert('Senha deve ter pelo menos 1 número');
         } else if (!temMaiuscula) {
             validacoes.push('sem_maiúscula');
-            alert('Senha deve conter pelo menos 1 letra maiúscula');
+            alert('Senha deve ter pelo menos 1 letra maiúscula');
         }
 
         // Se vetor de validações estiver vazio, cadastro foi bem-sucedido
@@ -126,7 +145,7 @@
 
         }
     });
-</script>
+    </script>
 
 </body>
 </html>

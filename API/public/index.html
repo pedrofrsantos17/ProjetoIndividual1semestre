@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
     <title>PULL UP HOOPS - História do Basquete</title>
+
+    <style>
+        .enquete {
+            padding: 2rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--chama-clara);
+            border-bottom: none;
+        }
+
+        .enquete h2 {
+            color: var(--dourado-titulo);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .enquete-descricao {
+            color: var(--chama-clara);
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .bloquinho {
+            display: block;
+            font-size: 1.15rem;
+            margin: 0.75rem auto;
+            color: var(--chama-clara);
+        }
+
+        .bloquinho input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--laranja-bola);
+        }
+
+        .btn-votar {
+            width: fit-content;
+            margin: 1rem auto 0;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,6 +63,19 @@
     <section class="hero">
         <h1>Conheça um pouco sobre esta bela história da NBA e como  ela mudou a minha vida!</h1>
         <p>Porquê este amor insaciável sobre a NBA?</p>
+    </section>
+
+    <section class="enquete" id="enquete">
+        <h2>Já jogou basquete?</h2>
+        <p class="enquete-descricao">Sua resposta é registrada e aparece no dashboard!</p>
+        <label class="bloquinho">
+            <input type="checkbox" id="poll_sim" /> Sim, joguei basquete
+        </label>
+        <label class="bloquinho">
+            <input type="checkbox" id="poll_nao" /> Não, ainda não joguei
+        </label>
+        <button type="button" id="btn-votar" class="btn-cadastro btn-votar">Votar</button>
+        <div id="mensagem-voto" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: var(--chama-vermelha); background: rgba(255,69,58,0.15);"></div>
     </section>
 
     <main>
@@ -71,6 +127,47 @@
     <footer>
         <p>2026. Pedro Henrique Ferreira Rodrigues Santos</p>
     </footer>
+
+    <script>
+        document.getElementById('btn-votar').addEventListener('click', function() {
+            var sim = document.getElementById('poll_sim').checked;
+            var nao = document.getElementById('poll_nao').checked;
+
+            var resposta = null;
+            if (sim) {
+                resposta = "SIM";
+            } else if (nao) {
+                resposta = "NAO";
+            }
+
+            var mensagemVoto = document.getElementById('mensagem-voto');
+
+            if (resposta == null) {
+                mensagemVoto.style.display = 'block';
+                mensagemVoto.innerHTML = 'Escolha uma resposta!';
+                return;
+            }
+
+            fetch("/enquetes/registrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ resposta: resposta })
+            }).then(function (respostaApi) {
+                if (respostaApi.ok) {
+                    return respostaApi.json();
+                }
+                throw "Houve um erro ao registrar o voto!";
+            }).then(function (data) {
+                mensagemVoto.style.display = 'block';
+                mensagemVoto.innerHTML = data.mensagem;
+            }).catch(function (erro) {
+                mensagemVoto.style.display = 'block';
+                mensagemVoto.innerHTML = "Erro ao registrar o voto: " + erro;
+            });
+        });
+    </script>
 
 </body>
 </html>

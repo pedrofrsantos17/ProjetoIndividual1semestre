@@ -4,7 +4,8 @@ function listar(req, res){
     quizModel.listar().then(function(resultado){
         res.status(200).json(resultado);
     }).catch(function(erro){
-        res.status(500).json(erro.sqlMessage);
+        console.log("Erro ao listar os resultados do quiz: ", erro);
+        res.status(500).json({ mensagem: "Erro ao carregar os resultados do quiz" });
     });
 }
 
