@@ -38,7 +38,7 @@ header {
     background: rgba(10, 14, 12, 0.8);
     backdrop-filter: blur(10px);
     color: var(--dourado-titulo);
-    padding: 1rem 2rem;
+    padding: 0.6rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +49,7 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -58,15 +58,25 @@ header {
 }
 
 nav a {
-    margin-left: 20px;
+    margin-left: 12px;
     text-decoration: none;
     color: var(--dourado-titulo);
     font-weight: 500;
+    font-size: 0.9rem;
     transition: color 0.3s;
 }
 
 nav a:hover {
     color: var(--laranja-bola);
+}
+
+/* Nav - links nomeados (Home, Quiz, Dashboard) */
+nav .nav-link {
+    width: auto;
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
 /* Botões */
@@ -279,6 +289,12 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
+/* Logo menor no header (nav bar menor) */
+header .img {
+    width: 70px;
+    border-width: 2px;
+}
+
 /* Container */
 .container {
     max-width: 1100px;
@@ -305,26 +321,42 @@ footer {
     text-align: center;
 }
 
-.conteudo-histórico {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: center;
+.conteudo-historico {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
 
-.conteudo-histórico img {
-    width: 65%;
-    border-radius: 15px;
+/* Par da história: foto na esquerda + texto na direita */
+.historia-par {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Par invertido: texto na esquerda + foto na direita */
+.historia-par-reversa {
+    flex-direction: row-reverse;
+}
+
+.historia-par .img-historia {
+    width: 45%;
+    min-width: 240px;
     height: auto;
+    border-radius: 15px;
     object-fit: cover;
     transition: transform 0.3s;
 }
 
-.conteudo-histórico img:hover {
+.historia-par .img-historia:hover {
     transform: scale(1.03);
 }
 
-.conteudo-histórico p {
+.historia-texto {
+    flex: 1;
+}
+
+.historia-texto p {
     line-height: 1.6;
     color: var(--chama-clara);
     font-size: 1.1rem;
@@ -357,7 +389,7 @@ footer {
 
 .grid-imagens img {
     width: 100%;
-    height: 280px;
+    height: 220px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s;
@@ -365,6 +397,25 @@ footer {
 
 .grid-imagens img:hover {
     transform: scale(1.05);
+}
+
+/* Espaço para legenda das imagens da galeria */
+.grid-imagens p {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--chama-clara);
+    opacity: 0.9;
+    text-align: center;
+}
+
+/* Agrupa imagem + legenda em um mesmo item do grid */
+.grid-imagens .item-galeria {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-imagens .item-galeria p {
+    margin-top: 0.75rem;
 }
 
 /* Classes auxiliares */
@@ -564,6 +615,76 @@ border-radius: 6px;
             border-color: var(--laranja-bola);
         }
 
+              /* Estilos da enquete */
+        .enquete {
+            padding: 2rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--chama-clara);
+            border-bottom: none;
+        }
+
+        .enquete h2 {
+            color: var(--dourado-titulo);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .enquete-descricao {
+            color: var(--chama-clara);
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .bloquinho {
+            display: block;
+            font-size: 1.15rem;
+            margin: 0.75rem auto;
+            color: var(--chama-clara);
+        }
+
+        .bloquinho input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--laranja-bola);
+        }
+
+        .btn-votar {
+            width: fit-content;
+            margin: 1rem auto 0;
+            display: block;
+        }
+
+        /* Ajustes de organização/coerência das seções */
+        main {
+            margin: 0 auto;
+            max-width: 1100px;
+            padding: 20px 2rem 60px;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+            color: var(--chama-clara);
+        }
+
+        .hero {
+            min-height: auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+    
+        .sobre,
+        .o-que-e,
+        .mundo-nba {
+            color: var(--chama-clara);
+        }
+
+        .historico,
+        .galeria {
+            color: var(--chama-clara);
+        }
+
 /* Responsividade */
 @media (max-width: 600px) {
     header {
@@ -579,8 +700,185 @@ border-radius: 6px;
         font-size: 2.5rem;
     }
     
-    .conteudo-histórico,
+    .conteudo-historico,
     .grid-imagens {
+        grid-template-columns: 1fr;
+    }
+
+    .historia-par,
+    .historia-par-reversa {
+        flex-direction: row;
+    }
+}
+
+/* ============================================================
+   DASHBOARD - RESULTADOS DO QUIZ (layout horizontal)
+   ============================================================ */
+
+#resultadosQuiz {
+    padding: 20px;
+    color: var(--chama-clara);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+}
+
+#resultadosQuiz h3 {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#resultadosQuiz .graph {
+    flex: 1 1 420px;
+    position: relative;
+}
+
+#resultadosQuiz #listaTentativas {
+    flex: 1 1 420px;
+}
+
+#resultadosQuiz .cadastro-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.cards-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.card-resumo {
+    background-color: #212124;
+    border: 1px solid var(--dourado-detalhe);
+    border-radius: 10px;
+    padding: 15px 25px;
+    text-align: center;
+    min-width: 140px;
+}
+
+.card-resumo .numero {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--laranja-bola);
+}
+
+.card-resumo .rotulo {
+    font-size: 0.85rem;
+    color: #d8d8d8;
+}
+
+.graph {
+    width: 90%;
+    margin: 20px auto;
+    padding-top: 10px;
+    position: relative;
+}
+
+#listaTentativas {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.item-tentativa {
+    background-color: #212124;
+    border-left: 3px solid var(--laranja-bola);
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    color: var(--chama-clara);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sem-dados {
+    text-align: center;
+    color: #d8d8d8;
+    padding: 20px;
+}
+
+.bolas-vindas {
+    text-align: center;
+    color: var(--chama-clara);
+    margin-bottom: 10px;
+}
+
+.btn-logout {
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
+    color: var(--bg-escuro);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    #resultadosQuiz {
+        padding: 10px;
+    }
+
+    #resultadosQuiz .graph,
+    #resultadosQuiz #listaTentativas {
+        flex: 1 1 100%;
+        position: relative;
+    }
+}
+
+
+
+#resultadosQuiz .cadastro-container {
+    max-width: 1000px;
+    width: 100%;
+    display: block;
+}
+
+.graficos-lado-a-lado {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.graficos-lado-a-lado .graph {
+    width: 100%;
+    height: 360px;
+    margin: 0;
+    padding: 0;
+}
+
+#listaTentativas {
+    max-width: 100%;
+}
+
+/* No celular, volta a empilhar */
+@media (max-width: 800px) {
+    .graficos-lado-a-lado {
         grid-template-columns: 1fr;
     }
 }

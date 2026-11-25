@@ -6,48 +6,7 @@
     <link rel="stylesheet" href="Style.css">
     <title>PULL UP HOOPS - História do Basquete</title>
 
-    <style>
-        .enquete {
-            padding: 2rem;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--chama-clara);
-            border-bottom: none;
-        }
 
-        .enquete h2 {
-            color: var(--dourado-titulo);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .enquete-descricao {
-            color: var(--chama-clara);
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .bloquinho {
-            display: block;
-            font-size: 1.15rem;
-            margin: 0.75rem auto;
-            color: var(--chama-clara);
-        }
-
-        .bloquinho input {
-            width: 18px;
-            height: 18px;
-            margin-right: 10px;
-            accent-color: var(--laranja-bola);
-        }
-
-        .btn-votar {
-            width: fit-content;
-            margin: 1rem auto 0;
-            display: block;
-        }
-    </style>
 </head>
 <body>
 
@@ -55,30 +14,31 @@
         <div class="logo">PULL UP HOOPS</div>
         <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
         <nav>
-            <a href="login.html" class="btn-login">Login</a>
-            <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
+            <a href="Cadastro.html" class="btn-login nav-link">Cadastro</a>
+            <a href="login.html" class="btn-cadastro nav-link">Login</a>
+           
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Conheça um pouco sobre esta bela história da NBA e como  ela mudou a minha vida!</h1>
-        <p>Porquê este amor insaciável sobre a NBA?</p>
-    </section>
-
-    <section class="enquete" id="enquete">
-        <h2>Já jogou basquete?</h2>
-        <p class="enquete-descricao">Sua resposta é registrada e aparece no dashboard!</p>
-        <label class="bloquinho">
-            <input type="checkbox" id="poll_sim" /> Sim, joguei basquete
-        </label>
-        <label class="bloquinho">
-            <input type="checkbox" id="poll_nao" /> Não, ainda não joguei
-        </label>
-        <button type="button" id="btn-votar" class="btn-cadastro btn-votar">Votar</button>
-        <div id="mensagem-voto" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: var(--chama-vermelha); background: rgba(255,69,58,0.15);"></div>
-    </section>
-
     <main>
+        <section class="hero">
+            <h1>Conheça um pouco sobre esta bela história da NBA e como  ela mudou a minha vida!</h1>
+            <p>Porquê este amor insaciável sobre a NBA?</p>
+        </section>
+
+        <section class="enquete" id="enquete">
+            <h2>Já jogou basquete?</h2>
+            <p class="enquete-descricao">Sua resposta é registrada e aparece no dashboard!</p>
+            <label class="bloquinho">
+                <input type="checkbox" id="poll_sim" /> Sim, joguei basquete
+            </label>
+            <label class="bloquinho">
+                <input type="checkbox" id="poll_nao" /> Não, ainda não joguei
+            </label>
+            <button type="button" id="btn-votar" class="btn-cadastro btn-votar">Votar</button>
+            <div id="mensagem-voto" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; font-size: 1.2rem; font-weight: bold; color: var(--chama-vermelha); background: rgba(255,69,58,0.15);"></div>
+        </section>
+
         <section class="sobre">
             <h2>Sobre Mim</h2>
             <p>Entusiasta de basquete que compartilha conhecimento sobre estatísticas, times e jogadores da NBA. Este site foi criado para ajudar fãs a entenderem melhor o jogo.</p>
@@ -99,11 +59,21 @@
             <div class="container">
                 <h2>História do Basquete</h2>
                 <div class="conteudo-historico">
-                    <img src="Dr._James_Naismith.jpg" alt="História do basquete" class="img-fluid">
-                    <p>O basquete foi inventado em dezembro de 1891 por James Naismith, um professor de educação física canadense. Ele criou o jogo para manter seus alunos ocupados durante os meses rigorosos do inverno em Springfield, Massachusetts. O primeiro jogo foi disputado com nove jogadores em cada lado e usando uma cesta de pêssegos como cesta.</p>
-                    
-                    <p>Em 1896, o primeiro jogo profissional foi realizado, e em 1946, a Basketball Association of America (BAA) foi fundada e assim, ocorreu o 1º jogo de basquete da história, entre New York Knicks e Toronto Huskies, que mais tarde se fundiu com a National Basketball League (NBL) para formar a NBA em 1949. Desde então, o esporte cresceu para se tornar um fenômeno global, com a NBA sendo a principal liga profissional do mundo.</p>
-                    <img src="1jogobasquete.jpeg" alt="História do basquete" class="bloco-invertido">
+                    <!-- Foto na esquerda + texto na direita -->
+                    <div class="historia-par">
+                        <img src="Dr._James_Naismith.jpg" alt="História do basquete" class="img-historia img-fluid">
+                        <div class="historia-texto">
+                            <p>O basquete foi inventado em dezembro de 1891 por James Naismith, um professor de educação física canadense. Ele criou o jogo para manter seus alunos ocupados durante os meses rigorosos do inverno em Springfield, Massachusetts. O primeiro jogo foi disputado com nove jogadores em cada lado e usando uma cesta de pêssegos como cesta.</p>
+                        </div>
+                    </div>
+
+                    <!-- Texto na esquerda + foto na direita -->
+                    <div class="historia-par historia-par-reversa">
+                        <div class="historia-texto">
+                            <p>Em 1896, o primeiro jogo profissional foi realizado, e em 1946, a Basketball Association of America (BAA) foi fundada e assim, ocorreu o 1º jogo de basquete da história, entre New York Knicks e Toronto Huskies, que mais tarde se fundiu com a National Basketball League (NBL) para formar a NBA em 1949. Desde então, o esporte cresceu para se tornar um fenômeno global, com a NBA sendo a principal liga profissional do mundo.</p>
+                        </div>
+                        <img src="1jogobasquete.jpeg" alt="História do basquete" class="img-historia img-fluid">
+                    </div>
                 </div>
             </div>
         </section>
@@ -113,12 +83,25 @@
             <div class="container">
                 <h2>Galeria de Imagens</h2>
                 <div class="grid-imagens">
-                    <img src="StephenCurry.jpg" alt="Jogador NBA" class="img-fluid">
-                    <p >Aqui observamos o maior arremessador de 3 pontos da história da NBA, Wardell Stephen Curry II  </p>
-                    <img src="jogada.jpeg" alt="Corte NBA" class="img-fluid">
-                    <img src="chasecenter.avif" alt="Estádio NBA" class="img-fluid">
-                    <img src="torcida.jpeg" alt="Fãs NBA" class="img-fluid">
-                    
+                    <div class="item-galeria">
+                        <img src="StephenCurry.jpg" alt="Jogador NBA" class="img-fluid">
+                        <p>Aqui observamos o maior arremessador de 3 pontos da história da NBA, Wardell Stephen Curry II</p>
+                    </div>
+                    <div class="item-galeria">
+                        <img src="jogada.jpeg" alt="Corte NBA" class="img-fluid">
+                    </div>
+                    <div class="item-galeria">
+                        <img src="chasecenter.avif" alt="Estádio NBA" class="img-fluid">
+                    </div>
+                    <div class="item-galeria">
+                        <img src="torcida.jpeg" alt="Fãs NBA" class="img-fluid">
+                    </div>
+                    <div class="item-galeria">
+                       <img src="imagemeu.jpeg" alt="">
+                    </div>
+                    <div class="item-galeria">
+                       <img src="imagemeu2.jpeg" alt="">
+                    </div>
                 </div>
             </div>
         </section>

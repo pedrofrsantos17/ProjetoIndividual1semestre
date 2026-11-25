@@ -129,6 +129,37 @@
     }
 
     function iniciarQuiz() {
+        // Se o usuário já respondeu o quiz, redireciona direto para a dashboard
+        fetch("/quiz/listar", { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw "Nao foi possivel carregar os resultados do quiz!";
+            })
+            .then(function (tentativas) {
+                var idUsuarioLogado = parseInt(sessionStorage.ID_USUARIO);
+                var jaTentou = false;
+
+                for (var i = 0; i < tentativas.length; i++) {
+                    if (tentativas[i].fk_usuario == idUsuarioLogado) {
+                        jaTentou = true;
+                        break;
+                    }
+                }
+
+                if (jaTentou) {
+                    window.location.href = "/dashboard/dashboard.html";
+                } else {
+                    iniciarQuizNormal();
+                }
+            })
+            .catch(function (erro) {
+                iniciarQuizNormal();
+            });
+    }
+
+    function iniciarQuizNormal() {
         document.getElementById('pontuacao').style.display = "flex"
         document.getElementById('jogo').style.display = "flex"
         document.getElementById('btnIniciarQuiz').style.display = "none"
@@ -303,13 +334,16 @@
 
         // Integração com a API: se o usuário está logado, envia as respostas para o banco
         if (sessionStorage.ID_USUARIO) {
-            enviarRespostasQuiz();
+            enviarRespostasQuiz().then(function () {
+                window.location.href = "/dashboard/dashboard.html";
+            });
+        } else {
+            window.location.href = "/dashboard/dashboard.html";
         }
-        document.getElementById('msgFinal').innerHTML += '<br><a href="dashboard/dashboard.html">Ver resultados</a>';
     }
 
     function enviarRespostasQuiz() {
-        fetch("/quiz/tentar", {
+        return fetch("/quiz/tentar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

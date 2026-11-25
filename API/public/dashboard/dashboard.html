@@ -22,150 +22,7 @@
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 
-    <style>
-        :root {
-            --bg-escuro: #0A0E0C;
-            --verde-chama: #2D5A27;
-            --dourado-titulo: #F5C35E;
-            --laranja-bola: #FF6B35;
-            --dourado-detalhe: #E8B445;
-            --chama-clara: #FFFEe0;
-            --chama-vermelha: #FF453A;
-            --roxo-acento: #6C5CE7;
-        }
-
-        body {
-            padding-top: 80px;
-        }
-
-        main {
-            margin: 0 auto;
-            max-width: 1100px;
-            padding: 20px 2rem 60px;
-            color: var(--chama-clara);
-            background: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-
-        .dashboard {
-            width: 100%;
-            padding: 0;
-            border-bottom: none;
-            color: var(--chama-clara);
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 700px;
-            margin: 0 auto 10px;
-        }
-
-        .dashboard-header h2 {
-            margin: 0;
-        }
-
-        #resultadosQuiz {
-            padding: 20px;
-            color: var(--chama-clara);
-        }
-
-        .cards-resumo {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px auto;
-            max-width: 900px;
-        }
-
-        .card-resumo {
-            background-color: #212124;
-            border: 1px solid var(--dourado-detalhe);
-            border-radius: 10px;
-            padding: 15px 25px;
-            text-align: center;
-            min-width: 140px;
-        }
-
-        .card-resumo .numero {
-            display: block;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--laranja-bola);
-        }
-
-        .card-resumo .rotulo {
-            font-size: 0.85rem;
-            color: #d8d8d8;
-        }
-
-        .graph {
-            width: 90%;
-            margin: 20px auto;
-            padding-top: 10px;
-        }
-
-        #listaTentativas {
-            max-width: 700px;
-            margin: 20px auto;
-        }
-
-        .item-tentativa {
-            background-color: #212124;
-            border-left: 3px solid var(--laranja-bola);
-            border-radius: 6px;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            color: var(--chama-clara);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .sem-dados {
-            text-align: center;
-            color: #d8d8d8;
-            padding: 20px;
-        }
-
-        .boas-vindas {
-            text-align: center;
-            color: var(--chama-clara);
-            margin-bottom: 10px;
-        }
-
-        .btn-logout {
-            cursor: pointer;
-            background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
-            color: var(--bg-escuro);
-            border: none;
-            border-radius: 6px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
-
-        .btn-logout:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
-        }
-
-        canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        @media (max-width: 600px) {
-            main {
-                padding: 15px 1rem 40px;
-            }
-        }
-    </style>
+   
 </head>
 
 <body onload="validarSessao(), exibirResultadosQuiz()">
@@ -195,16 +52,16 @@
                     <div class="cards-resumo" id="cardsResumo">
                         <!-- Os cards de resumo são montados via JavaScript -->
                     </div>
-
-                    <div class="graph">
+                     <div class="graficos-lado-a-lado">
+                    <div class="graph grafico-pizza">
                         <canvas id="graficoPizzaClassificacao"></canvas>
                     </div>
-
-                    <div class="graph">
+                    </div>
+                    <div class="graph grafico-barras">
                         <canvas id="graficoBarrasEnquete"></canvas>
                     </div>
 
-                    <div id="listaTentativas">
+                    <div id="listaTentativas" class="lista-tentativas">
                         <!-- A lista de tentativas é montada via JavaScript -->
                     </div>
                 </div>
@@ -244,51 +101,50 @@
         }
 
         // Monta os cartões de resumo (tentativas, jogadores, media, melhor e pior resultado)
-        function renderizarResumoQuiz(tentativas) {
-            var totalTentativas = tentativas.length;
-            var quantidadeJogadores = {};
-            var somaPercentual = 0;
-            var maiorPercentual = 0;
-            var menorPercentual = 0;
+       function renderizarResumoQuiz(tentativas) {
+    var totalTentativas = tentativas.length;
+    var jogadores = {};
+    var soma = 0;
+    var maior = 0;
+    var menor = 0;
 
-            for (var i = 0; i < tentativas.length; i++) {
-                var t = tentativas[i];
-                quantidadeJogadores[t.fk_usuario] = true;
-                somaPercentual += t.percentual;
+    for (var i = 0; i < tentativas.length; i++) {
+        var t = tentativas[i];
+        var perc = Number(t.percentual);
 
-                if (i === 0 || t.percentual > maiorPercentual) {
-                    maiorPercentual = t.percentual;
-                }
-                if (i === 0 || t.percentual < menorPercentual) {
-                    menorPercentual = t.percentual;
-                }
-            }
+        jogadores[t.fk_usuario] = true;
+        soma += perc;
 
-            var mediaPercentual = tentativas.length > 0 ? (somaPercentual / tentativas.length) : 0;
+        if (i === 0 || perc > maior) maior = perc;
+        if (i === 0 || perc < menor) menor = perc;
+    }
 
-            document.getElementById("cardsResumo").innerHTML = `
-                <div class="card-resumo">
-                    <span class="numero">${totalTentativas}</span>
-                    <span class="rotulo">Tentativas</span>
-                </div>
-                <div class="card-resumo">
-                    <span class="numero">${Object.keys(quantidadeJogadores).length}</span>
-                    <span class="rotulo">Jogadores</span>
-                </div>
-                <div class="card-resumo">
-                    <span class="numero">${mediaPercentual.toFixed(1)}%</span>
-                    <span class="rotulo">Média</span>
-                </div>
-                <div class="card-resumo">
-                    <span class="numero">${maiorPercentual}%</span>
-                    <span class="rotulo">Melhor</span>
-                </div>
-                <div class="card-resumo">
-                    <span class="numero">${menorPercentual}%</span>
-                    <span class="rotulo">Pior</span>
-                </div>
-            `;
-        }
+    var media = totalTentativas > 0 ? (soma / totalTentativas) : 0;
+
+    document.getElementById("cardsResumo").innerHTML = `
+        <div class="card-resumo">
+            <span class="numero">${totalTentativas}</span>
+            <span class="rotulo">Tentativas</span>
+        </div>
+        <div class="card-resumo">
+            <span class="numero">${Object.keys(jogadores).length}</span>
+            <span class="rotulo">Jogadores</span>
+        </div>
+        <div class="card-resumo">
+            <span class="numero">${media.toFixed(1)}%</span>
+            <span class="rotulo">Média</span>
+        </div>
+        <div class="card-resumo">
+            <span class="numero">${maior}%</span>
+            <span class="rotulo">Melhor</span>
+        </div>
+        <div class="card-resumo">
+            <span class="numero">${menor}%</span>
+            <span class="rotulo">Pior</span>
+        </div>
+    `;
+}
+        
 
         // Monta o gráfico de pizza com a distribuição das classificações
         function renderizarGraficoPizza(tentativas) {
@@ -341,7 +197,7 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'bottom',
@@ -428,7 +284,7 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'bottom',
