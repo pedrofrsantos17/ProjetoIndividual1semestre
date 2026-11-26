@@ -12,7 +12,7 @@
         <div class="logo">PULL UP HOOPS</div>
         <img class="img" src="logo.png" alt="PULL UP HOOPS Logo">
         <nav>
-            <a href="index.html" class="btn-login">Login</a>
+            <a href="index.html" class="btn-login">Home</a>
             <a href="cadastro.html" class="btn-cadastro">Cadastro</a>
         </nav>
     </header>
@@ -29,6 +29,7 @@
                     <div class="form-group">
                         <label for="senha">Senha</label>
                         <input type="password" id="ipt_senha" name="senha" required>
+                        <button id="botao" type="button" class="botao" onclick="mostrarsenha() ">Mostrar senha</button>
                     </div>
                     <button type="submit" class="btn-cadastro">Entrar</button>
                 </form>
@@ -43,6 +44,14 @@
     </footer>
 
     <script>
+        function mostrarsenha(){
+            const senha = document.getElementById("ipt_senha")
+            if(senha.type === "password"){
+                senha.type = "text"
+            } else {
+                senha.type = "password"
+            }
+        }
         function mostrarMensagemErro(mensagem) {
             var divErro = document.getElementById("mensagem-erro");
             divErro.style.display = "block";

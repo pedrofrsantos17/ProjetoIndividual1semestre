@@ -16,7 +16,7 @@ function criarTentativa(fkUsuario){
 }
 
 function registrarResposta(fkTentativa, numQuestao, letra){
-    // Localiza o id da alternativa a partir da questão (num_questao) e da letra (A, B, C, D)
+    
     var instrucaoSelect =
     `SELECT id_alternativa FROM alternativa WHERE num_questao = ? AND letra = ?;`;
     console.log("Executando a instrução SQL: \n" + instrucaoSelect);

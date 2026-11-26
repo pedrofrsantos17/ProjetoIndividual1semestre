@@ -418,6 +418,13 @@ header .img {
     margin-top: 0.75rem;
 }
 
+/* Imagem específica do Pedro (imagemeu2.jpeg) - sem corte */
+.grid-imagens .imagem-pedro {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+}
+
 /* Classes auxiliares */
 .img-fluid {
     width: 100%;
@@ -711,9 +718,10 @@ border-radius: 6px;
     }
 }
 
-/* ============================================================
-   DASHBOARD - RESULTADOS DO QUIZ (layout horizontal)
-   ============================================================ */
+.botao {
+color: var(--dourado-titulo);
+background-color: var(--verde-chama);
+}
 
 #resultadosQuiz {
     padding: 20px;
