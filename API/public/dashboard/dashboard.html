@@ -32,14 +32,14 @@
         <img class="img" src="../logo.png" alt="PULL UP HOOPS Logo">
         <nav>
             <a href="../index.html" class="btn-login">Home</a>
-            <a href="../quiz.html" class="btn-cadastro">Quiz</a>
+            <a href="../Cadastro.html" class="btn-cadastro">Cadastro</a>
         </nav>
     </header>
 
     <main>
         <section class="dashboard">
-            <div class="dashboard-header">
-                <h2>Resultados do Quiz</h2>
+            <div class="dashboard-header"> <br> <br>
+                <h2 style="text-align: center;">Resultados do Quiz</h2>
                 <div class="btn-logout" onclick="limparSessao()">
                     <h3>Sair</h3>
                 </div>
@@ -52,10 +52,8 @@
                     <div class="cards-resumo" id="cardsResumo">
                         <!-- Os cards de resumo são montados via JavaScript -->
                     </div>
-                     <div class="graficos-lado-a-lado">
-                    <div class="graph grafico-pizza">
+                     <div class="graph grafico-pizza">
                         <canvas id="graficoPizzaClassificacao"></canvas>
-                    </div>
                     </div>
                     <div class="graph grafico-barras">
                         <canvas id="graficoBarrasEnquete"></canvas>

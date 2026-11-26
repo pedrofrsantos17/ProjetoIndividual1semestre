@@ -753,8 +753,9 @@ background-color: var(--verde-chama);
 }
 
 #resultadosQuiz .graph {
-    flex: 1 1 420px;
+    flex: 0.5 0.6 420px;
     position: relative;
+    flex-direction: row;
 }
 
 #resultadosQuiz #listaTentativas {
@@ -841,8 +842,8 @@ background-color: var(--verde-chama);
     background: linear-gradient(135deg, var(--laranja-bola), var(--chama-vermelha));
     color: var(--bg-escuro);
     border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
+    border-radius: 4px;
+    padding: 10px 10px;
     font-size: 1rem;
     font-weight: bold;
     transition: transform 0.2s, box-shadow 0.3s;
@@ -876,7 +877,8 @@ canvas {
 #resultadosQuiz .cadastro-container {
     max-width: 1000px;
     width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: row;
 }
 
 .graficos-lado-a-lado {
