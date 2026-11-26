@@ -723,6 +723,19 @@ color: var(--dourado-titulo);
 background-color: var(--verde-chama);
 }
 
+.mensagem-voto{
+
+    margin-top: 1rem;
+     padding: 1rem; 
+     border-radius: 8px;
+      text-align: center; 
+      display: none; 
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      color: var(--chama-vermelha);
+       background: rgba(255,69,58,0.15);
+}
+
 #resultadosQuiz {
     padding: 20px;
     color: var(--chama-clara);
