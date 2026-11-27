@@ -54,9 +54,11 @@ function cadastrar(req, res) {
         return res.status(400).send("Senha deve ter no mínimo 8 caracteres");
     } else if (!senha.split("").some(function (char) { return !isNaN(char); })) {
         return res.status(400).send("Senha deve ter pelo menos 1 número");
-    } else if (senha !== senha.toUpperCase()) {
-        return res.status(400).send("Senha deve ter pelo menos 1 letra maiúscula");
-    }
+    } if (!senha || senha.length < 8 || !/[A-Z]/.test(senha) || !/\d/.test(senha)) {
+    return res.status(400).json({
+        mensagem: "A senha precisa de 8 caracteres, 1 letra maiúscula e 1 número."
+    });
+}
 
     usuarioModel.cadastrar(nome, email, senha).then(
         function (resultado) {
@@ -73,8 +75,8 @@ function cadastrar(req, res) {
             return res.status(500).json(erro.sqlMessage);
         }
     );
-}
 
+}
 module.exports = {
     autenticar,
     cadastrar
